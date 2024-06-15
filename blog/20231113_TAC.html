@@ -1,0 +1,1450 @@
+<!--Declare document type -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- MAKE SURE TO UPDATE PAGE TITLE-->
+		<title>Thing-Action-Context Language, TACL- A General Purpose Language - Naas Energy</title>
+		<!-- Link the external "style3" CSS file from the root to style this page-->
+		<link rel="stylesheet" href="/css/style3.css" type="text/css">
+	</head>
+	<body>
+		<!-- Pull "container" style from css file -->
+		<div id="container">
+
+	<!-- Template Header for Every Page Begins Here -->
+		<header>
+        <div style="display:inline-block;">
+            <h1>Naas Energy</h1>
+			<h2>The Official WorldWideWeblog of Corey Naas</h2>
+			<nav>
+                <b><a href="/index.html">Home</a></b>&emsp;&emsp;
+                <a href="/blog.html">Blog</a> / <a href="/microblog.html">Microblog</a>&emsp;&emsp;
+				<a href="/writings.html">Writings</a>
+                <br><br>
+                <a href="/projects.html">Projects</a>&emsp;&emsp;
+                <a href="/aboutme.html">About Me</a>&emsp;&emsp;
+                <b><a href="/now.html">Now</a></b>
+			</nav>
+			<br>
+        </div>
+        <div style="display:inline-block;vertical-align:top;">
+            <img src="/images/Corey.JPG" width="200" />
+        </div>
+		</header>
+	<!-- Template Header for Every Page Ends Here -->
+  
+    <main>
+      <m1>Thing-Action-Context Language, TACL- A General Purpose Language</m1><br>
+        <p1>
+<br>
+<b><em>Updated specification, AI training prompt, and more examples at</em></b> <a href="https://github.com/CoreyNaas/TACL/">https://github.com/CoreyNaas/TACL/</a>
+
+<hr>
+
+<p>Specification Version: v1.0.1 (2023-11-13T19:00:00-07:00)</p>
+
+<p>Thing-Action-Context Language (TACL) is a language that centers around the concept of &quot;Things&quot; which encapsulate data, actions, and control structures. TACL emphasizes readability and simplicity, using unique syntax that mirrors natural language while maintaining computational precision.</p>
+<p>It is a formulaic way to explain how to do anything.</p>
+<p>This is the functional description for Thing-Action-Context Language (TACL), a general purpose language written by Corey Naas in November 2023.</p>
+<h2 id="hello-world">Hello World</h2>
+<p>In this program, we define a <code>Main</code> action that takes no inputs. This action simply prints &quot;Hello World!&quot; to the standard output and then returns 0.</p>
+<pre><code class="lang-TACL"># Define the action <span class="hljs-string">"Main"</span> with the <span class="hljs-built_in">system</span> <span class="hljs-string">"DefineAction"</span> action
+<span class="hljs-symbol">&lt;Main&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An Error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"Hello World!"</span>}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+# Execute the action <span class="hljs-string">"Main"</span> with <span class="hljs-keyword">no</span> inputs
+[Main]
+</code></pre>
+<hr>
+<h2 id="version-history">Version History</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Changes</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.9.0</td>
+<td>2023-11-08</td>
+<td>Corey Naas</td>
+<td>Internal release of TACL specification.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>1.0.0</td>
+<td>2023-11-13</td>
+<td>Corey Naas</td>
+<td>Public release of TACL specification.</td>
+<td>on <a href="https://coreynaas.com">https://coreynaas.com</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#Hello%20World">Hello World</a></li>
+<li><a href="#Version%20History">Version History</a></li>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Syntax%20Quick%20Reference%20Table">Syntax Quick Reference Table</a></li>
+<li><a href="#TAC">TAC</a><ol>
+<li><a href="#Things">Things</a></li>
+<li><a href="#Contexts">Contexts</a></li>
+<li><a href="#Actions">Actions</a></li>
+</ol>
+</li>
+<li><a href="#Showing%20Things%20Off">Showing Things Off</a></li>
+<li><a href="#Orderings%20Things%20with%20Contexts">Orderings Things with Contexts</a><ol>
+<li><a href="#Concise%20and%20Plain%20Forms">Concise and Plain Forms</a></li>
+</ol>
+</li>
+<li><a href="#Expanding%20Things%20with%20Boxes%20and%20Piles">Expanding Things with Boxes and Piles</a></li>
+<li><a href="#Controlling%20the%20Flow%20of%20Things">Controlling the Flow of Things</a><ol>
+<li><a href="#If-Then-Else">If-Then-Else</a></li>
+<li><a href="#Loops">Loops</a><ol>
+<li><a href="#While%20Loop">While Loop</a></li>
+<li><a href="#For%20Loop">For Loop</a></li>
+</ol>
+</li>
+<li><a href="#Attempt">Attempt</a></li>
+<li><a href="#Switch%20and%20Case">Switch and Case</a></li>
+</ol>
+</li>
+<li><a href="#Appendix:%20Standard%20Libary%20of%20Actions">Appendix: Standard Libary of Actions</a><ol>
+<li><a href="#System/Shell/IO%20Actions">System/Shell/IO Actions</a></li>
+<li><a href="#Control%20Flow%20Actions">Control Flow Actions</a></li>
+<li><a href="#Mathematical%20and%20Logical%20Operation%20Actions">Mathematical and Logical Operation Actions</a></li>
+</ol>
+</li>
+<li><a href="#Appendix:%20Example%20Code">Appendix: Example Code</a><ol>
+<li><a href="#Hello%20World">Hello World</a></li>
+<li><a href="#Making%20a%20Sandwich">Making a Sandwich</a></li>
+<li><a href="#FizzBuzz">FizzBuzz</a></li>
+<li><a href="#The%20Creation%20of%20the%20World">The Creation of the World</a></li>
+<li><a href="#Factorial">Factorial</a></li>
+<li><a href="#Fibonacci%20Sequence">Fibonacci Sequence</a></li>
+<li><a href="#Reverse%20a%20String">Reverse a String</a></li>
+</ol>
+</li>
+<li><a href="#Appendix:%20Turing-Completeness%20Review">Appendix: Turing-Completeness Review</a></li>
+<li><a href="#Appendix:%20Syntax%20Completion%20Surveys">Appendix: Syntax Completion Surveys</a><ol>
+<li><a href="#Bubble%20Sort">Bubble Sort</a><ol>
+<li><a href="#Prompt%20for%20Reviewer">Prompt for Reviewer</a></li>
+<li><a href="#Response%20from%20Reviewer">Response from Reviewer</a></li>
+</ol>
+</li>
+<li><a href="#Binary%20Search%20Tree">Binary Search Tree</a><ol>
+<li><a href="#Prompt%20for%20Reviewer">Prompt for Reviewer</a></li>
+<li><a href="#Response%20from%20Reviewer">Response from Reviewer</a></li>
+</ol>
+</li>
+<li><a href="#Conway&#39;s%20Game%20of%20Life">Conway&#39;s Game of Life</a><ol>
+<li><a href="#Prompt%20for%20Reviewer">Prompt for Reviewer</a></li>
+<li><a href="#Response%20from%20Reviewer">Response from Reviewer</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#Appendix:%20%22Syntactic%20Sugar%22">Appendix: &quot;Syntactic Sugar&quot;</a></li>
+<li><a href="#Appendix:%20Paradigms">Appendix: Paradigms</a></li>
+</ol>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<p>==BEGIN AI-GENERATED CONTENT==</p>
+<p>Thing-Action-Context Language is designed to be a simple, versatile, and intuitive way to describe &quot;doing stuff with things&quot;. It is a broad yet basic syntactic language that transcends the conventional boundaries of the physical and the abstract, the concrete and the conceptual.</p>
+<p>In contrast to similar-looking languages such as LISP or Python, our language does not rely on symbolic expressions or prefix notation for function calls. Instead, it uses a unique and intuitive syntax to represent actions and their parameters. Our language also deviates from pseudocode by introducing specific syntax for control flow statements and error handling, as well as clearly defined contexts for data transportation, assignment, and execution.</p>
+<p>Our language is a significant departure from plain English too. While it is designed to be readable in plain English, it also introduces computational syntax and language conventions for clarity and precision. This makes our language more expressive and powerful, without sacrificing readability or understandability.</p>
+<p>A salient feature of our language is its use of <em>Things</em> as the fundamental units of the language. <em>Things</em> can be objects, abstract ideas, numbers, colors, sounds, feelings, tastes, or even actions. Each <em>Thing</em> is distinguished with a unique identifier or label, and can represent various components such as inputs, outputs, and actions.</p>
+<p>We introduce the concept of &quot;contexts&quot; to provide extra-contextual information about how to interpret and execute the usage of a <em>Thing</em>. Our language uses different types of brackets to denote four different contexts: action context <code>[]</code>, transport context <code>{}</code>, assignment context <code>&lt;&gt;</code>, and index context <code>()</code>.</p>
+<p>Our language also introduces the concept of &quot;Boxes&quot; and &quot;Piles&quot; to represent collections of <em>Things</em>. A <em>Box</em> is a loose collection of <em>Things</em>, while a <em>Pile</em> is an ordered collection of <em>Things</em> with associated indexes.</p>
+<p>Control flow in our language is represented using actions such as:</p>
+<ul>
+<li><code>[Condition]{condition, [ActionIfTrue]{parameters}, [ActionIfFalse]{parameters}}</code> for if-then-else statements, </li>
+<li><code>[While]{[ConditionAction]{parameters}, [ActionSequence]{parameters}}</code> for while loops, </li>
+<li>and <code>[For]{[InitializationAction]{parameters}, [ConditionAction]{parameters}, [UpdateAction]{parameters}, [ActionSequence]{parameters}}</code> for for loops.</li>
+</ul>
+<p>Error handling in our language is implemented through the simplified <code>[Attempt]</code> action which attempts an action and handles exceptions in one go. Our language also supports switch/case statements using the <code>[Switch]</code> action followed by a Box or Pile of cases.</p>
+<p>This language specification serves as a comprehensive guide to our language, providing detailed explanations of its unique features, syntax, and conventions. We hope it will serve as a useful tool for understanding and using our language to its fullest potential.</p>
+<p>Regards, 
+Cora</p>
+<p>==END AI-GENERATED CONTENT==</p>
+<h2 id="syntax-quick-reference-table">Syntax Quick Reference Table</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thing</td>
+<td><code>identifier</code></td>
+</tr>
+<tr>
+<td>Thing (Transport)</td>
+<td><code>{identifier}</code></td>
+</tr>
+<tr>
+<td>Thing (Assignment)</td>
+<td><code>&lt;identifier&gt;</code></td>
+</tr>
+<tr>
+<td>Thing (Action)</td>
+<td><code>[identifier]</code></td>
+</tr>
+<tr>
+<td>Action Definition</td>
+<td><code>&lt;Action&gt;[DefineAction]{ &lt;Input&gt;{param1, param2, ...}, &lt;Default&gt;&lt;error&gt;&quot;Error message&quot;, &lt;Body&gt;{&lt;operations&gt;} }</code></td>
+</tr>
+<tr>
+<td>Action Invocation</td>
+<td><code>&lt;Result&gt;[Action]{param1, param2, ...}</code></td>
+</tr>
+<tr>
+<td>Concise Assignment</td>
+<td><code>&lt;Assignment&gt;[Action]</code></td>
+</tr>
+<tr>
+<td>Action with Transport</td>
+<td><code>[Action] with {param1, param2, ...}</code></td>
+</tr>
+<tr>
+<td>Concise Action-Transport</td>
+<td><code>[Action]{param1, param2, ...}</code></td>
+</tr>
+<tr>
+<td>Box</td>
+<td><code>&lt;Box&gt;{item1, item2, ...}</code></td>
+</tr>
+<tr>
+<td>Pile (Ordered Box)</td>
+<td><code>&lt;Pile&gt;{(1)item1, (2)item2, ...}</code></td>
+</tr>
+<tr>
+<td>Access Pile at Index</td>
+<td><code>[Pile](Index)</code></td>
+</tr>
+<tr>
+<td>If-Then-Else</td>
+<td><code>[Condition] with {condition, [ActionIfTrue]{params}, [ActionIfFalse]{params}}</code></td>
+</tr>
+<tr>
+<td>While Loop</td>
+<td><code>[While]{[ConditionAction]{params}, [ActionSequence]{params}}</code></td>
+</tr>
+<tr>
+<td>For Loop</td>
+<td><code>[For]{[InitializationAction]{params}, [ConditionAction]{params}, [UpdateAction]{params}, [ActionSequence]{params}}</code></td>
+</tr>
+<tr>
+<td>Attempt</td>
+<td><code>[Attempt]{[ActionToAttempt]{params}, [ErrorHandler]{params}}</code></td>
+</tr>
+<tr>
+<td>Switch-Case</td>
+<td><code>[Switch]{value, {(1)[Case]{(1)case1Value, (2)[Action1]{parameters}}, (2)[Case]{(1)case2Value, (2)[Action2]{parameters}}, ...}}</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tac">TAC</h2>
+<h3 id="things">Things</h3>
+<p>The syntax for a <em>Thing</em> is flexible. It is enclosed in curly braces <code>{}</code> when it represents being transported (i.e., read from), such as the inputs to an action, enclosed in angle brackets <code>&lt;&gt;</code> when it represents being assigned (i.e., written to), and enclosed in square brackets <code>[]</code> when it represents actions (i.e., executed). When referring to a <em>Thing</em> within the language, we simply use its identifier.</p>
+<p>In the context of our language, a <em>Thing</em> can represent various components:</p>
+<ul>
+<li>It can be an input to an action, or assigned to another <em>Thing</em>.</li>
+<li>It can be an action, indicating the operations or transformations performed.</li>
+<li>It can be an output from an action, or assigned the value of another <em>Thing</em>.</li>
+</ul>
+<h3 id="contexts">Contexts</h3>
+<p>In our language, we introduce the concept of &quot;contexts&quot;, which are represented by different types of brackets. This concept is rooted in the philosophy of making the language readable in plain English, while also providing extra-contextual information about how to interpret and execute the usage of a Thing.</p>
+<p>Here are the contexts we&#39;ve defined:</p>
+<ol>
+<li><strong>Action Context <code>[]</code></strong>: This context is all about actions. When you see a <em>Thing</em> within square brackets, you know that it represents an operation to be executed.</li>
+<li><strong>Transport Context <code>{}</code></strong>: This context transports <em>Things</em>, as parameters, to an action or assignment. A Thing within curly braces is a piece of information or data being passed to an action defined in square brackets or an assignment defined in angle brackets. Multiple <em>Things</em> are separated by (1) commas, or (2) new lines and indentation, in off-side rule form.</li>
+<li><strong>Assignment Context</strong> <code>&lt;&gt;</code>: This context changes the value or content, if any, of a <em>Thing</em>. The input can be a primitive, a literal, an action, or a transport representing multiple <em>Things</em>.</li>
+<li><strong>Index Context</strong> <code>()</code>: This context contains the index of a <em>Thing</em> in a Pile.</li>
+</ol>
+<pre><code class="lang-TACL"># Valid Assignment Context usages
+<span class="hljs-symbol">&lt;myThing&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-string">"the pen in my right pocket"</span>
+<span class="hljs-symbol">&lt;myAge&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-number">27</span>
+<span class="hljs-symbol">&lt;myStuff&gt;</span> <span class="hljs-keyword">is</span> {myThing, myAge}
+<span class="hljs-symbol">&lt;allMyStuff&gt;</span>{myStuff, <span class="hljs-symbol">&lt;myName&gt;</span><span class="hljs-string">"Corey"</span>}
+<span class="hljs-symbol">&lt;allMyStuffOrdered&gt;</span>{(<span class="hljs-number">1</span>)myStuff, (<span class="hljs-number">2</span>)<span class="hljs-symbol">&lt;myName&gt;</span><span class="hljs-string">"Corey"</span>}
+</code></pre>
+<h3 id="actions">Actions</h3>
+<p>A function is a process or operation that takes certain information (input) and produces a result (output). To simplify our language and make it more intuitive, we replace &quot;Function&quot; with &quot;Action&quot;. An &quot;Action&quot; can be seen as a higher-level &quot;Thing&quot; that performs operations and manipulates other &quot;Things&quot;. </p>
+<p>Here&#39;s an example of how you could write a simple action, using the system <code>[DefineAction]</code> action:</p>
+<pre><code class="lang-TACL"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">AddNumbers</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt;{num1, num2}</span><span class="xml">,
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">error</span>&gt;</span>"An error has occurred.",
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        &lt;result&gt;[Add]{num1, num2}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{result}</span><span class="xml">
+    }
+}
+
+[AddNumbers]</span><span class="hljs-template-variable">{1, 2}</span><span class="xml"></span>
+</code></pre>
+<p>The <code>[DefineAction]</code> action takes three parameters in a transport: an Input, a Default output, and a Body.</p>
+<ol>
+<li>The <code>&lt;Input&gt;</code> is a <em>Thing</em> that contains the parameters of the action.</li>
+<li>The <code>&lt;Default&gt;</code> is a <em>Thing</em> that contains the <em>Thing</em> to return if the action doesn&#39;t otherwise return. In this example, the string is also being assigned to a <em>Thing</em> named &quot;error&quot;.</li>
+<li>The <code>&lt;Body&gt;</code> is a <em>Thing</em> that encapsulates the operations of the action. This approach retains the transport and assignment aspects of our language, while also simplifying the syntax.</li>
+</ol>
+<p>The <code>&lt;Return&gt;</code> is a fourth <em>Thing</em>, that returns from the action. It is set to <code>&lt;Default&gt;</code> when the action is first executed.</p>
+<p>We allow eliding the commas in a transport list if the transport list is fully separated by lines.</p>
+<h2 id="showing-things-off">Showing Things Off</h2>
+<p>This is an example that demonstrates most of the major features of TACL.</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;Main&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-string">"An Error has occurred, please panic."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span> <span class="hljs-keyword">is</span> {
+        # myFavouriteNumber <span class="hljs-keyword">is</span> <span class="hljs-number">7</span>
+        <span class="hljs-symbol">&lt;myFavouriteNumber&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-number">7</span>
+
+        # <span class="hljs-keyword">Print</span> with myFavouriteNumber
+        [<span class="hljs-keyword">Print</span>] with {myFavouriteNumber}
+
+        # <span class="hljs-keyword">Print</span> with CustomAdd with myFavouriteNumber <span class="hljs-built_in">and</span> <span class="hljs-number">4</span>
+        [<span class="hljs-keyword">Print</span>] with {[CustomAdd] with {myFavouriteNumber, <span class="hljs-number">4</span>}}
+
+        # myFavouriteNumber <span class="hljs-keyword">is</span> <span class="hljs-number">8</span>
+        <span class="hljs-symbol">&lt;myFavouriteNumber&gt;</span><span class="hljs-number">8</span>
+
+        # <span class="hljs-keyword">Print</span> with myFavouriteNumber
+        [<span class="hljs-keyword">Print</span>]{myFavouriteNumber}
+
+        # myNewNumber <span class="hljs-keyword">is</span> myTestAction with myFavouriteNumber.
+        <span class="hljs-symbol">&lt;myNewNumber&gt;</span> <span class="hljs-keyword">is</span> [myTestAction] with {myFavouriteNumber}
+
+        # myNewNumber <span class="hljs-keyword">is</span> myTestAction with Add with myFavouriteNumber <span class="hljs-built_in">and</span> <span class="hljs-number">42</span>.
+        <span class="hljs-symbol">&lt;myNewNumber&gt;</span>[myTestAction]{[Add]{myFavouriteNumber, <span class="hljs-number">42</span>}}
+
+        # <span class="hljs-keyword">Print</span> with myNew Number
+        [<span class="hljs-keyword">Print</span>]{myNewNumber}
+
+        # myNewNextNumber <span class="hljs-keyword">is</span> MyTestAction with myNewNumber
+        <span class="hljs-symbol">&lt;myNextNewNumber&gt;</span> <span class="hljs-keyword">is</span> [MyTestAction] with {myNewNumber}
+
+        # <span class="hljs-keyword">Print</span> with myNextNewNumber
+        [<span class="hljs-keyword">Print</span>] with {myNextNewNumber}
+
+        [Condition]{
+            [GreaterThan]{<span class="hljs-number">10</span>,<span class="hljs-number">2</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-string">"10 is greater than 2!"</span>, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-string">"10 is less than 2!"</span>
+        }
+
+        [Attempt]{[<span class="hljs-keyword">Print</span>]{[Divide]{<span class="hljs-number">1</span>,<span class="hljs-number">0</span>}}, [<span class="hljs-keyword">Print</span>]<span class="hljs-string">"You can't divide by zero!"</span>}
+
+        [Attempt]{
+            [<span class="hljs-keyword">Print</span>]{
+                [Divide]{<span class="hljs-number">2</span>,<span class="hljs-number">0</span>}
+            },
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-string">"You \*still\* can't divide by zero!!!"</span>
+        }
+
+        <span class="hljs-symbol">&lt;Return&gt;</span><span class="hljs-number">0</span>
+    }
+}
+
+<span class="hljs-symbol">&lt;CustomAdd&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{num1, num2}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An Error has occurred, please panic."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;temp&gt;</span>[Add]{num1, num2}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{[Add]{temp, <span class="hljs-number">1</span>}}
+    }
+}
+
+<span class="hljs-symbol">&lt;MyTestAction&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{inputNum}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-string">"An Error has occurred, please panic."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;internalNumber&gt;</span><span class="hljs-number">7</span>
+        <span class="hljs-symbol">&lt;newNumber&gt;</span>[CustomAdd]{inputNum, internalNumber}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{newNumber}
+    }
+}
+
+[Main]
+</code></pre>
+<h2 id="orderings-things-with-contexts">Orderings Things with Contexts</h2>
+<p>In TACL, the arrangement of assignments, actions, and transport contexts is flexible, yet follows specific rules. This flexibility allows you to construct different types of expressions based on your needs. Here are the valid orders for these components:</p>
+<ol>
+<li>An Assignment can be any sort of anything that can follow the keyword <strong>is:</strong> <code>&lt;Assignment&gt; is 5</code>, or <code>&lt;Assignment&gt;5</code> for short. Enclose strings in double quotation marks: <code>&lt;Assignment&gt; is &quot;my shoe&quot;</code>, or <code>&lt;Assignment&gt;&quot;my shoe&quot;</code> </li>
+<li>An assignment can be an action: <code>&lt;Assignment&gt; is [Action]</code> or <code>&lt;Assignment&gt;[Action]</code> for short.</li>
+<li>An action can take a transport context using the keyword <strong>with</strong>: <code>[Action] with {Transport}</code> or concisely <code>[Action]{Transport}</code>.</li>
+<li>An action, if a Pile, can take an index context, which returns that Thing in the Pile: <code>[myPile] with (3)</code> returns the third <code>Thing</code> in <code>myPile</code>, or <code>[myPile](3)</code> for short.</li>
+<li>An assignment can be an action with a transport context: <code>&lt;Assignment&gt; is [Action] with {Transport}</code> or more concisely <code>&lt;Assignment&gt;[Action]{Transport}</code>.</li>
+<li>A transport can be a comma-separated list of <em>Things</em>, actions, or assignments. Indexes, to induce order, can be included using the index context.</li>
+</ol>
+<h3 id="concise-and-plain-forms">Concise and Plain Forms</h3>
+<p>TACL offers two forms for writing expressions: the Plain form and the Concise form. The Plain form uses keywords like &#39;is&#39;, &#39;with&#39;, and &#39;at&#39; to structure the expression, making it more readable. The Concise form, on the other hand, omits these keywords, resulting in a more compact expression. Here&#39;s how the two forms compare:</p>
+<ol>
+<li>In Plain form, an assignment is an action: <code>&lt;Assignment&gt; is [Action]</code>. In Concise form, this becomes <code>&lt;Assignment&gt;[Action]</code>.</li>
+<li>In Plain form, an action takes a transport context: <code>[Action] with {Transport}</code>. In Concise form, this becomes <code>[Action]{Transport}</code>.</li>
+<li>In Plain form, an assignment can be an action with a transport context: <code>&lt;Assignment&gt; is [Action] with {Transport}</code>. In Concise form, this becomes <code>&lt;Assignment&gt;[Action]{Transport}</code>.</li>
+<li>In Plain form, an assignment can be a transport context: <code>&lt;Assignment&gt; is {Transport}</code>. In Concise form, this becomes <code>&lt;Assignment&gt;{Transport}</code>.</li>
+<li>In Plain form, an assignment can be a Pile with <em>Things</em> in given indexes using the keyword <strong>at</strong>: <code>&lt;Assignment&gt; is {&quot;Item 1&quot; at 1, &quot;Item 2&quot; at 2}</code>. In Concise form, this becomes <code>&lt;Assignment&gt;{(1)&quot;Item 1&quot;, (2)&quot;Item 2&quot;}</code>.</li>
+<li>In Plain form, a Pile, in an action context, takes an index context: <code>[Pile] with (Index)</code>. In Concise form, this becomes <code>[Pile](Index)</code>. For compatibility, either <code>with</code> or <code>at</code> are accepted in Plain form.</li>
+<li>In Plain form, an assignment can be a Pile, in an action context, with an index context: <code>&lt;Assignment&gt; is [Pile] with (Index)</code>. In Concise form, this becomes <code>&lt;Assignment&gt;[Pile]{Index}</code>. For compatibility, either <code>with</code> or <code>at</code> are accepted in Plain form.</li>
+</ol>
+<h2 id="expanding-things-with-boxes-and-piles">Expanding Things with Boxes and Piles</h2>
+<p>In our language, we use the concept of &quot;Boxes&quot; to represent a collection of <em>Things</em>. This is similar to the idea of a &quot;list&quot; or an &quot;array&quot; in many programming languages, but with a key distinction.</p>
+<p>A <em>Box</em> is a <em>Thing</em> that contains other <em>Things</em>. The specific <em>Things</em> that a <em>Box</em> contains are not ordered, sorted, or otherwise structured.</p>
+<pre><code class="lang-TACL"><span class="hljs-meta">#Box - Plain Form</span>
+<span class="hljs-params">&lt;Thing1&gt;</span> is <span class="hljs-string">"Whatever is in my left front pocket right now."</span>
+<span class="hljs-params">&lt;Thing2&gt;</span> is <span class="hljs-string">"the memory of watching the sunset in Nassau on a cool fall evening"</span>
+<span class="hljs-params">&lt;myThing&gt;</span> <span class="hljs-class">is </span>{Thing1}
+<span class="hljs-params">&lt;myThingBox&gt;</span> <span class="hljs-class">is </span>{myThing, Thing2, Thing3}
+
+<span class="hljs-meta">#Box - Concise Form</span>
+<span class="hljs-params">&lt;Thing1&gt;</span><span class="hljs-string">"Whatever is in my left front pocket right now."</span>
+<span class="hljs-params">&lt;myThing&gt;</span>{Thing1}
+<span class="hljs-params">&lt;myThingBox&gt;</span>{myThing, Thing2, Thing3}
+</code></pre>
+<p>We adapt the concept for an ordered <em>Box</em>, or <em>Pile</em>. Here, we use the <code>at</code> keyword or the index context <code>()</code> to associate the <em>Things</em> with their indexes.</p>
+<pre><code class="lang-TACL">#Pile - Plain Form
+&lt;myThingPile&gt; is {myThing at <span class="hljs-number">1</span>, [Add]{Thing2, <span class="hljs-number">1</span>} at <span class="hljs-number">2</span>, <span class="hljs-string">"This is a thing too!"</span> at <span class="hljs-number">3</span>}
+
+#Pile - Concise Form
+&lt;myThingPile&gt;{(<span class="hljs-number">1</span>)myThing, (<span class="hljs-number">2</span>)[Add]{Thing2, <span class="hljs-number">1</span>}, (<span class="hljs-number">3</span>)<span class="hljs-string">"This is a thing too!"</span>}
+</code></pre>
+<p>Things within a pile can be accessed by their index using the index context <code>()</code> or the  <code>[AccessAt]</code> action:</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;myFirstThing&gt;</span><span class="hljs-string">"my will to live"</span>
+
+<span class="hljs-symbol">&lt;MyFirstPile&gt;</span>{(<span class="hljs-number">1</span>)myFirstThing, (<span class="hljs-number">2</span>)[Add]{<span class="hljs-number">1</span>, <span class="hljs-number">1</span>}, (<span class="hljs-number">3</span>)<span class="hljs-string">"This is a thing too!"</span>}
+
+<span class="hljs-symbol">&lt;mySpecificThing&gt;</span>[myFirstPile](<span class="hljs-number">1</span>)
+[<span class="hljs-keyword">Print</span>]{mySpecificThing} # would <span class="hljs-keyword">print</span> <span class="hljs-string">"my will to live"</span> <span class="hljs-keyword">to</span> the standard output
+
+<span class="hljs-symbol">&lt;myThing&gt;</span>[AccessAt]{myThingPile, <span class="hljs-number">3</span>}
+[<span class="hljs-keyword">Print</span>]{myThing} # would <span class="hljs-keyword">print</span> <span class="hljs-string">"This is a thing too!"</span> <span class="hljs-keyword">to</span> the standard output
+
+<span class="hljs-symbol">&lt;myIndex&gt;</span><span class="hljs-number">1</span>
+<span class="hljs-symbol">&lt;myThing&gt;</span>[AccessAt]{myThingPile, [Add]{myIndex, <span class="hljs-number">1</span>}}
+[<span class="hljs-keyword">Print</span>]{myThing} # would <span class="hljs-keyword">print</span> <span class="hljs-string">"2"</span> <span class="hljs-keyword">to</span> the standard output
+</code></pre>
+<p>We allow eliding the commas in a Box or Pile if the contents is fully separated by lines. For example:</p>
+<pre><code class="lang-TACL">&lt;myThingBox&gt;{
+    myThing
+    Thing2
+    Thing3
+}
+
+&lt;myThingPile&gt; is {
+    myThing at <span class="hljs-number">1</span>
+    Thing2 at <span class="hljs-number">2</span>
+    Thing3 at <span class="hljs-number">3</span>
+}
+
+&lt;myThingPile&gt;{
+    (<span class="hljs-number">1</span>)myThing
+    (<span class="hljs-number">2</span>)[Add]{<span class="hljs-number">2</span>, <span class="hljs-number">1</span>}
+    (<span class="hljs-number">3</span>)<span class="hljs-string">"This is a thing too!"</span>
+}
+</code></pre>
+<h2 id="controlling-the-flow-of-things">Controlling the Flow of Things</h2>
+<h3 id="if-then-else">If-Then-Else</h3>
+<p>The If-Then-Else construct in TACL provides a mechanism to execute different sequences of actions based on the evaluation of a condition. This control flow action is designed to enhance decision-making processes within the language. When employing If-Then-Else, we categorize our components into three distinct roles:</p>
+<ol>
+<li><strong>Condition Evaluation (<code>[Condition]</code>)</strong>: This is an action that evaluates to a boolean value. The result of this evaluation determines which subsequent path the execution will follow.</li>
+<li><strong>True Branch (<code>[ActionIfTrue]</code>)</strong>: This action or sequence of actions is executed if <code>evaluatedCondition</code> evaluates to true. It&#39;s a series of operations that are enacted when the specified condition holds.</li>
+<li><strong>False Branch (<code>[ActionIfFalse]</code>)</strong>: Conversely, if <code>evaluatedCondition</code> evaluates to false, this action or sequence of actions will be carried out. It represents an alternate path of execution for scenarios where the condition is not met.</li>
+</ol>
+<p>The syntax for using the If-Then-Else construct is as follows:</p>
+<pre><code class="lang-TACL">[Condition]{evaluatedCondition, [ActionIfTrue]{trueParams}, [ActionIfFalse]{falseParams}}
+</code></pre>
+<p>An example of this control flow in practice might be:</p>
+<pre><code class="lang-TACL">&lt;temperature&gt;<span class="hljs-number">25</span>
+
+<span class="hljs-string">[Condition]</span>{
+    <span class="hljs-string">[GreaterThan]</span>{temperature, <span class="hljs-number">20</span>}, 
+    <span class="hljs-string">[Print]</span>{<span class="hljs-string">"It's a warm day."</span>},
+    <span class="hljs-string">[Print]</span>{<span class="hljs-string">"It's a cool day."</span>}
+}
+</code></pre>
+<p>In the example above, the condition checks whether the variable <code>temperature</code> exceeds 20 degrees. If the condition is true, the program prints &quot;It&#39;s a warm day.&quot; Otherwise, it prints &quot;It&#39;s a cool day.&quot;</p>
+<h3 id="loops">Loops</h3>
+<p>In our language, we redefine traditional loops using our action and transport contexts. Here&#39;s how we approach this:</p>
+<h4 id="while-loop">While Loop</h4>
+<p>The while loop is represented by an action, <code>[While]</code>. The <code>[While]</code> action takes two parameters: an action that returns a boolean (the loop condition), and an action (or sequence of Actions) to execute while the condition is true. </p>
+<pre><code class="lang-TACL">[While]{[ConditionAction]{parameters}, [ActionSequence]{parameters}}
+</code></pre>
+<h4 id="for-loop">For Loop</h4>
+<p>The for loop is a bit more complex, as it involves initialization, condition checking, and incrementation/decrementation. We represent this with an action, <code>[For]</code>. The <code>[For]</code> action takes three parameters: an action that initializes the loop variable, an action that checks the loop condition, and an action that updates the loop variable at the end of each iteration. A fourth parameter is the Action (or sequence of Actions) to execute in each iteration.</p>
+<pre><code class="lang-TACL">[For]{[InitializationAction]{parameters}, [ConditionAction]{parameters}, [UpdateAction]{parameters}, [ActionSequence]{parameters}}
+</code></pre>
+<h3 id="attempt">Attempt</h3>
+<p>Given our language structure, we upgraded our try-catch mechanism into a single action. This is done by introducing a new action <code>[Attempt]</code> which simultaneously attempts an action and handles any exceptions in one go. The <code>[Attempt]</code> action can take two parameters: the action to be attempted and the action to be executed in case of an error.</p>
+<p>The syntax looks like this:</p>
+<pre><code class="lang-TACL">[Attempt]{[ActionToAttempt]{parameters}, [ErrorHandler]{parameters}}
+</code></pre>
+<p>For example, if we have an action <code>CalculateDistance</code> that takes two parameters <code>start_point</code> and <code>end_point</code>, and an error handling action <code>HandleError</code>, the <code>[Attempt]</code> action would look like this:</p>
+<pre><code class="lang-TACL">[Attempt]{[CalculateDistance]{start_point, end_point}, [HandleError]{parameters}}
+</code></pre>
+<p>In this case, <code>CalculateDistance</code> will be attempted. If it executes without an exception, then the program proceeds normally. But if an exception is thrown, the <code>HandleError</code> action is called.</p>
+<h3 id="switch-and-case">Switch and Case</h3>
+<p>To implement switch/case statements in our language, we use the action <code>[Switch]</code> followed by a Thing that we want to evaluate. We then define a Pile of <code>[Case]</code> actions, each represented as a Pile with the case value and the corresponding action. </p>
+<pre><code class="lang-TACL">[Switch]{value, {(<span class="hljs-number">1</span>)[Case]{(<span class="hljs-number">1</span>)case1Value, (<span class="hljs-number">2</span>)[Action1]{parameters}}, (<span class="hljs-number">2</span>)[Case]{(<span class="hljs-number">1</span>)case2Value, (<span class="hljs-number">2</span>)[Action2]{parameters}}, ...}}
+</code></pre>
+<p>The structure of the transport context is as follows, shown expanded with new lines for readability: </p>
+<pre><code>{
+    value, 
+    {
+        (<span class="hljs-number">1</span>)[Case]{
+            (<span class="hljs-number">1</span>)case1Value, 
+            (<span class="hljs-number">2</span>)[Action1]{parameters}
+        } 
+        (<span class="hljs-number">2</span>)[Case]{
+            (<span class="hljs-number">1</span>)case2Value
+            (<span class="hljs-number">2</span>)[Action2]{parameters}
+        } 
+        # ...
+        (<span class="hljs-name">N</span>)[Case]{
+            (<span class="hljs-number">1</span>)caseNValue
+            (<span class="hljs-number">2</span>)[ActionN]{parameters}
+        }
+    }
+}
+</code></pre><p>Breaking it down:</p>
+<ul>
+<li><code>value</code>: This is the <em>Thing</em> being evaluated. The <em>Thing</em> could be a numerical value, a string, or any other type of data that can be compared.</li>
+<li><code>[(1)[Case]{(1)case1Value, (2)[Action1]{parameters}}]</code>: This represents a single case. Each case is represented as a Pile within a Box. The case itself is a Pile with two elements: the case value (<code>case1Value</code>) and the Action to execute if the case value matches the <code>value</code>.</li>
+<li><code>(1)case1Value</code>: This is the value for the case. If <code>value</code> matches <code>case1Value</code>, then <code>[Action1]{parameters}</code> is executed. </li>
+<li><code>(2)[Action1]{parameters}</code>: This is the Action that is executed if <code>value</code> matches <code>case1Value</code>. The Action takes parameters, which are represented within the transport context <code>{parameters}</code>.</li>
+</ul>
+<p>The entire <code>[Switch]</code> action context contains multiple cases, each defined in the same way. The cases are tested in order, and when a match is found, the corresponding Action is executed.</p>
+<p>Here&#39;s an example of a simple switch-case statement that tests a numerical value:</p>
+<pre><code class="lang-TACL">&lt;Main&gt;[DefineAction]{
+    &lt;Input&gt; is {}
+    &lt;Default&gt;&lt;Error&gt;<span class="hljs-string">"An Error has occurred."</span>
+    &lt;Body&gt;{
+        &lt;value&gt;<span class="hljs-number">2</span>
+        [Switch]{
+            value, 
+            {
+                (<span class="hljs-number">1</span>)[Case]{(<span class="hljs-number">1</span>)<span class="hljs-number">1</span>, (<span class="hljs-number">2</span>)[Print]{<span class="hljs-string">"One"</span>}},
+                (<span class="hljs-number">2</span>)[Case]{(<span class="hljs-number">1</span>)<span class="hljs-number">2</span>, (<span class="hljs-number">2</span>)[Print]{<span class="hljs-string">"Two"</span>}},
+                (<span class="hljs-number">3</span>)[Case]{(<span class="hljs-number">1</span>)<span class="hljs-number">3</span>, (<span class="hljs-number">2</span>)[Print]{<span class="hljs-string">"Three"</span>}}
+            }
+        }
+        &lt;Return&gt;{<span class="hljs-number">0</span>}
+    }
+}
+</code></pre>
+<p>In this example, the <code>value</code> is 2. The <code>[Switch]</code> action context tests <code>value</code> against the case values 1, 2, and 3. When it finds that <code>value</code> matches the second case (2), it executes the corresponding Action, which is <code>[Print]{&quot;Two&quot;}</code>.</p>
+<h2 id="appendix-standard-libary-of-actions">Appendix: Standard Libary of Actions</h2>
+<h3 id="system-shell-io-actions">System/Shell/IO Actions</h3>
+<ul>
+<li><code>[Assign]{thing1, thing2}</code><ul>
+<li>Assigns thing1 the contents of thing2. This is the same as using the assignment context <code>&lt;&gt;</code>.</li>
+</ul>
+</li>
+<li><code>[AccessAt] with {Pile, Index}</code><ul>
+<li>Returns the <em>Thing</em> in the given Pile at the given Index. This is the same as using <code>[Pile](Index)</code>.</li>
+</ul>
+</li>
+<li><code>[DefineAction] with {Input, Default, Body}</code><ul>
+<li>Creates an Action using the given Input(s), Default returned <em>Thing</em>, and Body. Returns a <em>Thing</em>, which could very well be no<em>Thing</em>... null.</li>
+</ul>
+</li>
+<li><code>[Print] with {thing1, thing2, ..., thingN}</code><ul>
+<li>Prints the contents of thing1, thing2, ..., thingN to the standard output.</li>
+</ul>
+</li>
+<li><code>[Prompt] with {promptString}</code><ul>
+<li>Prints the promptString to the standard output and awaits input from the standard input. Returns the line of input. </li>
+</ul>
+</li>
+</ul>
+<h3 id="control-flow-actions">Control Flow Actions</h3>
+<ul>
+<li><code>[Condition]{condition, [ActionIfTrue]{parameters}, [ActionIfFalse]{parameters}}</code><ul>
+<li>If-Then-Else.</li>
+</ul>
+</li>
+<li><code>[Switch]{value, {[Case]{(1) case1Value, (1) [Action1]{parameters}}, [Case]{(2) case2Value, (2) [Action2]{parameters}}, ...}}</code><ul>
+<li>Switch Statement.</li>
+</ul>
+</li>
+<li><code>[Case]{(1) case1Value, (1) [Action1]{parameters}}</code><ul>
+<li>Case Statement. Used in <code>[Switch]</code>.</li>
+</ul>
+</li>
+<li><code>[Attempt]{[ActionToAttempt]{parameters}, [ErrorHandler]{parameters}}</code><ul>
+<li>Exception handling.</li>
+</ul>
+</li>
+<li><code>[For]{[InitializationAction]{parameters}, [ConditionAction]{parameters}, [UpdateAction]{parameters}, [ActionSequence]{parameters}}</code><ul>
+<li>For Loop.</li>
+</ul>
+</li>
+<li><code>[While]{[ConditionAction]{parameters}, [ActionSequence]{parameters}}</code><ul>
+<li>While Loop.</li>
+</ul>
+</li>
+</ul>
+<h3 id="mathematical-and-logical-operation-actions">Mathematical and Logical Operation Actions</h3>
+<ul>
+<li><code>[Add]{thing1, thing2, ..., thingN}</code><ul>
+<li>Adds thing1 and thing2, and thing3 ..., and thingN and returns the Sum.</li>
+<li><code>[Plus]{thing1, thing2, ..., thingN}</code> will work too.</li>
+</ul>
+</li>
+<li><code>[Subtract]{thing1, thing2, ..., thingN}</code><ul>
+<li>Subbtracts thing1 from thing2, and from thing3, ..., from thingN, and returns the Subtrahend.</li>
+<li><code>[Minus]{thing1, thing2, ..., thingN}</code> will work too.</li>
+</ul>
+</li>
+<li><code>[Multiply]{thing1, thing2, ..., thingN}</code><ul>
+<li>Multiplies thing1 and thing2, and thing3, ..., and thingN and returns the Product.</li>
+<li><code>[Times]{thing1, thing2, ..., thingN}</code> will work too</li>
+</ul>
+</li>
+<li><code>[Divide]{thing1, thing2, ..., thingN}</code><ul>
+<li>Divides thing1 by thing2, by thing3, ..., by thingN and returns the Dividend.</li>
+<li><code>[Frac]{thing1, thing2, ..., thingN}</code> will work too.</li>
+</ul>
+</li>
+<li><code>[Increment]{thing, increment}</code><ul>
+<li>Increment thing by increment.</li>
+</ul>
+</li>
+<li><code>[Decrement]{thing, decrement}</code><ul>
+<li>Decrement thing by decrement.</li>
+</ul>
+</li>
+<li><code>[IsEven]{thing}</code><ul>
+<li>Returns true if thing is even, false if thing is odd.</li>
+</ul>
+</li>
+<li><code>[And]{thing1, thing2, ..., thingN}</code><ul>
+<li>Returns true if thing1, thing2, ..., thingN are all true, returns false if any are false.</li>
+</ul>
+</li>
+<li><code>[Or]{thing1, thing2, ..., thingN}</code><ul>
+<li>Returns true if any of thing1, thing2, ..., thingN are true, returns false if all are false.</li>
+</ul>
+</li>
+<li><code>[Not]{thing}</code><ul>
+<li>Returns true if thing is false, returns false if thing is true.</li>
+</ul>
+</li>
+<li><code>[GreaterThan]{thing1, thing2, ..., thingN}</code><ul>
+<li>Returns true if thing1 is greater than thing2, and if thing2 is greater than thing3, ..., and if thingN-1 is greater than thingN.</li>
+</ul>
+</li>
+<li><code>[LessThan]{thing1, thing2, ..., thingN}</code><ul>
+<li>Returns true if thing1 is less than thing2, and if thing2 is less than thing3, ..., and if thingN-1 is less than thingN.</li>
+</ul>
+</li>
+<li><code>[Equals]{thing1, thing2, ..., thingN}</code><ul>
+<li>Returns true if thing1 is equal to thing2, and if thing2 is equal to thing3, ..., and if thingN-1 is equal to thingN.</li>
+</ul>
+</li>
+<li><code>[Unequals]{thing1, thing2, ..., thingN}</code><ul>
+<li>Returns true if thing1 is unequal to thing2, and if unthing2 is equal to thing3, ..., and if thingN-1 is unequal to thingN.</li>
+</ul>
+</li>
+</ul>
+<h2 id="appendix-example-code">Appendix: Example Code</h2>
+<p>==BEGIN AI-GENERATED CONTENT==</p>
+<h3 id="hello-world">Hello World</h3>
+<p>In this program, we define a <code>Main</code> action that takes no inputs. This action simply prints &quot;Hello World!&quot; to the standard output and then returns 0.</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;Main&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An Error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"Hello World!"</span>}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+[Main]
+</code></pre>
+<h3 id="making-a-sandwich">Making a Sandwich</h3>
+<p>In this TACL script, the process of making a peanut butter and jelly sandwich is broken down into several actions:</p>
+<ul>
+<li><code>MakeSandwich</code>: The main action that outlines the steps to make the sandwich.</li>
+<li><code>GetBreadSlice</code>: An action to get a slice of bread.</li>
+<li><code>Spread</code>: An action to spread either peanut butter or jelly on a slice of bread.</li>
+<li><code>Combine</code>: Combines two bread slices into a sandwich.</li>
+<li><code>Serve</code>: Presents the final sandwich.</li>
+</ul>
+<p>Each action is defined using the <code>[DefineAction]</code> action which includes the inputs required, a default error message, and the body containing the steps for that action. The <code>&lt;Return&gt;</code> is used to specify what each action should return upon completion.</p>
+<p>The script assumes the existence of actions <code>TakeSlice</code>, <code>ApplySpread</code>, <code>PlaceOnTop</code>, and <code>Present</code> within the environment, which perform the literal operations of taking a bread slice, spreading an ingredient, combining two slices, and serving the sandwich, respectively.</p>
+<pre><code class="lang-TACL"><span class="hljs-variable">&lt;MakeSandwich&gt;</span>[DefineAction]{
+    <span class="hljs-variable">&lt;Input&gt;</span>{}
+    <span class="hljs-variable">&lt;Default&gt;</span><span class="hljs-variable">&lt;error&gt;</span><span class="hljs-string">"Unable to make sandwich due to an error."</span>
+    <span class="hljs-variable">&lt;Body&gt;</span>{
+        <span class="hljs-comment"># Get two slices of bread</span>
+        <span class="hljs-variable">&lt;breadSlice1&gt;</span> is [GetBreadSlice]{}
+        <span class="hljs-variable">&lt;breadSlice2&gt;</span> is [GetBreadSlice]{}
+
+        <span class="hljs-comment"># Spread peanut butter on one slice</span>
+        [Spread]{peanutButter, breadSlice1}
+
+        <span class="hljs-comment"># Spread jelly on the other slice</span>
+        [Spread]{jelly, breadSlice2}
+
+        <span class="hljs-comment"># Put the two slices together</span>
+        <span class="hljs-variable">&lt;sandwich&gt;</span>[Combine]{breadSlice1, breadSlice2}
+
+        <span class="hljs-comment"># Sandwich is ready to be served</span>
+        [Serve]{sandwich}
+
+        <span class="hljs-variable">&lt;Return&gt;</span>0
+    }
+}
+
+<span class="hljs-variable">&lt;GetBreadSlice&gt;</span>[DefineAction]{
+    <span class="hljs-variable">&lt;Input&gt;</span>{}
+    <span class="hljs-variable">&lt;Default&gt;</span><span class="hljs-variable">&lt;error&gt;</span><span class="hljs-string">"No bread available."</span>
+    <span class="hljs-variable">&lt;Body&gt;</span>{
+        <span class="hljs-variable">&lt;slice&gt;</span>[TakeSlice]{bread}
+        <span class="hljs-variable">&lt;Return&gt;</span>{slice}
+    }
+}
+
+<span class="hljs-variable">&lt;Spread&gt;</span>[DefineAction]{
+    <span class="hljs-variable">&lt;Input&gt;</span>{spread, breadSlice}
+    <span class="hljs-variable">&lt;Default&gt;</span><span class="hljs-variable">&lt;error&gt;</span><span class="hljs-string">"Spread or bread not available."</span>
+    <span class="hljs-variable">&lt;Body&gt;</span>{
+        [ApplySpread]{spread, breadSlice}
+        <span class="hljs-variable">&lt;Return&gt;</span>{breadSlice}
+    }
+}
+
+<span class="hljs-variable">&lt;Combine&gt;</span>[DefineAction]{
+    <span class="hljs-variable">&lt;Input&gt;</span>{slice1, slice2}
+    <span class="hljs-variable">&lt;Default&gt;</span><span class="hljs-variable">&lt;error&gt;</span><span class="hljs-string">"Cannot combine slices."</span>
+    <span class="hljs-variable">&lt;Body&gt;</span>{
+        <span class="hljs-variable">&lt;combined&gt;</span>[PlaceOnTop]{slice1, slice2}
+        <span class="hljs-variable">&lt;Return&gt;</span>{combined}
+    }
+}
+
+<span class="hljs-variable">&lt;Serve&gt;</span>[DefineAction]{
+    <span class="hljs-variable">&lt;Input&gt;</span>{item}
+    <span class="hljs-variable">&lt;Default&gt;</span><span class="hljs-variable">&lt;error&gt;</span><span class="hljs-string">"Nothing to serve."</span>
+    <span class="hljs-variable">&lt;Body&gt;</span>{
+        [Present]{item}
+        <span class="hljs-variable">&lt;Return&gt;</span>0
+    }
+}
+
+<span class="hljs-comment"># Start making the sandwich</span>
+[MakeSandwich]{}
+</code></pre>
+<h3 id="fizzbuzz">FizzBuzz</h3>
+<p>The FizzBuzz program prints the numbers from 1 to 100, but for multiples of 3 prints &quot;Fizz&quot; instead of the number, and for multiples of 5 prints &quot;Buzz&quot;. For numbers which are multiples of both 3 and 5 prints &quot;FizzBuzz&quot;.</p>
+<p>The <code>IsMultiple</code> action checks if a number is a multiple of a base number. If it is, it returns &quot;Is a multiple.&quot;, otherwise it returns &quot;Not a multiple.&quot;.</p>
+<p>The <code>FizzBuzz</code> action checks if a number is a multiple of 3, 5, or 15, and then prints &quot;Fizz&quot;, &quot;Buzz&quot;, or &quot;FizzBuzz&quot; accordingly. If the number is not a multiple of 3, 5, or 15, it simply prints the number.</p>
+<p>The <code>Main</code> action runs a loop from 1 to 100, invoking the <code>FizzBuzz</code> action for each number.</p>
+<pre><code class="lang-TACL">&lt;IsMultiple&gt;[DefineAction]{
+    &lt;Input&gt;{num, base}
+    &lt;Default&gt;<span class="hljs-string">"Not a multiple."</span>
+    &lt;Body&gt;{
+        [Condition]{
+            [Equals]{[Modulo]{num, base}, <span class="hljs-number">0</span>},
+            &lt;Return&gt;<span class="hljs-string">"Is a multiple."</span>,
+            &lt;Return&gt;<span class="hljs-string">"Not a multiple."</span>
+        }
+    }
+}
+
+&lt;FizzBuzz&gt;[DefineAction]{
+    &lt;Input&gt;{num}
+    &lt;Default&gt;&lt;Error&gt;<span class="hljs-string">"An error has occurred."</span>
+    &lt;Body&gt;{
+        [Condition]{
+            [Equals]{[IsMultiple]{num, <span class="hljs-number">15</span>}, <span class="hljs-string">"Is a multiple."</span>},
+            [Print]{<span class="hljs-string">"FizzBuzz"</span>},
+            [Condition]{
+                [Equals]{[IsMultiple]{num, <span class="hljs-number">3</span>}, <span class="hljs-string">"Is a multiple."</span>},
+                [Print]{<span class="hljs-string">"Fizz"</span>},
+                [Condition]{
+                    [Equals]{[IsMultiple]{num, <span class="hljs-number">5</span>}, <span class="hljs-string">"Is a multiple."</span>},
+                    [Print]{<span class="hljs-string">"Buzz"</span>},
+                    [Print]{num}
+                }
+            }
+        }
+        &lt;Return&gt;{<span class="hljs-number">0</span>}
+    }
+}
+
+&lt;Main&gt;[DefineAction]{
+    &lt;Input&gt; is {}
+    &lt;Default&gt;&lt;Error&gt;<span class="hljs-string">"An Error has occurred."</span>
+    &lt;Body&gt;{
+        &lt;num&gt;<span class="hljs-number">1</span>
+        [While]{
+            [LessThan]{num, <span class="hljs-number">101</span>},
+            &lt;Body&gt;{
+                [FizzBuzz]{num}
+                &lt;num&gt;[Add]{num, <span class="hljs-number">1</span>}
+            }
+        }
+        &lt;Return&gt;{<span class="hljs-number">0</span>}
+    }
+}
+
+[Main]
+</code></pre>
+<h3 id="the-creation-of-the-world">The Creation of the World</h3>
+<p>Transposing the Story of Creation into TACL, we would encapsulate each act of creation into an action. The story unfolds over seven days, so we would define an action for each day&#39;s creation. The original text has God speaking things into existence (&quot;And God said, &#39;Let there be light,&#39; and there was light.&quot;). In TACL, this could be represented with a series of <code>CreateThing</code> actions.</p>
+<p>Here is a conceptual representation of the Story of Creation in TACL:</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;CreateLight&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to create light."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;light&gt;</span>[CreateThing]{<span class="hljs-string">"Light"</span>}
+        [Condition]{
+            light, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And there was light."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;CreateSky&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to create sky."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;sky&gt;</span>[CreateThing]{<span class="hljs-string">"Sky"</span>}
+        [Condition]{
+            sky, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And there was sky dividing the waters."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;CreateLandAndVegetation&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to create land and vegetation."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;land&gt;</span>[CreateThing]{<span class="hljs-string">"Land"</span>}
+        <span class="hljs-symbol">&lt;vegetation&gt;</span>[CreateThing]{<span class="hljs-string">"Vegetation"</span>}
+        [Condition]{
+            [And]{land, vegetation}, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And there was land with vegetation."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;CreateCelestialBodies&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to create celestial bodies."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;sun&gt;</span>[CreateThing]{<span class="hljs-string">"Sun"</span>}
+        <span class="hljs-symbol">&lt;moon&gt;</span>[CreateThing]{<span class="hljs-string">"Moon"</span>}
+        <span class="hljs-symbol">&lt;stars&gt;</span>[CreateThing]{<span class="hljs-string">"Stars"</span>}
+        [Condition]{
+            [And]{<span class="hljs-keyword">sun</span>, moon, stars}, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And there were celestial bodies to separate day from night."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;CreateAquaticAndAvianLife&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to create aquatic and avian life."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;fish&gt;</span>[CreateThing]{<span class="hljs-string">"Fish"</span>}
+        <span class="hljs-symbol">&lt;birds&gt;</span>[CreateThing]{<span class="hljs-string">"Birds"</span>}
+        [Condition]{
+            [And]{fish, birds}, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And there were fish in the sea and birds in the sky."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;CreateLandAnimalsAndHumans&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to create land animals and humans."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;landAnimals&gt;</span>[CreateThing]{<span class="hljs-string">"Land Animals"</span>}
+        <span class="hljs-symbol">&lt;humans&gt;</span>[CreateThing]{<span class="hljs-string">"Humans"</span>}
+        [Condition]{
+            [And]{landAnimals, humans}, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And there were land animals and humans to rule over them."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;Rest&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to rest."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;rest&gt;</span>[CreateThing]{<span class="hljs-string">"Rest"</span>}
+        [Condition]{
+            rest, 
+            [<span class="hljs-keyword">Print</span>]{<span class="hljs-string">"And on the seventh day, God ended his work, and he rested."</span>}, 
+            [<span class="hljs-keyword">Print</span>]<span class="hljs-symbol">&lt;error&gt;</span>
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;StoryOfCreation&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Unable to tell the story of creation."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        [CreateLight]{}
+        [CreateSky]{}
+        [CreateLandAndVegetation]{}
+        [CreateCelestialBodies]{}
+        [CreateAquaticAndAvianLife]{}
+        [CreateLandAnimalsAndHumans]{}
+        [Rest]{}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+[StoryOfCreation]
+</code></pre>
+<p>In this rendition, each action represents what God created on each day. The actions are called sequentially by the <code>StoryOfCreation</code> action, mirroring the seven days of creation. Each creation step checks whether the <code>CreateThing</code> action was successful and prints an appropriate message or an error if the creation could not be completed.</p>
+<p>Please note that this is a conceptual and simplified representation. The actual creation process, as narrated, would be infinitely more complex and nuanced than any computer language can depict.</p>
+<p>Regards, </p>
+<p>Cora</p>
+<h3 id="factorial">Factorial</h3>
+<p>This program calculates the factorial of a number. The <code>Factorial</code> action checks if the input number is 0 or 1. If it is, it returns 1; otherwise, it multiplies the number by the factorial of (number - 1).</p>
+<pre><code class="lang-TACL"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Factorial</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt;{num}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        [Condition]{
+            [Or]{[Equals]{num, 0}</span><span class="xml">, [Equals]</span><span class="hljs-template-variable">{num, 1}</span><span class="xml">},
+            <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span>1,
+            <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span>[Multiply]</span><span class="hljs-template-variable">{num, [Factorial]{[Subtract]{num, 1}</span><span class="xml">}}
+        }
+    }
+}
+
+<span class="hljs-tag">&lt;<span class="hljs-name">Main</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt; is {}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        &lt;num&gt;5
+        &lt;fact&gt;[Factorial]{num}</span><span class="xml">
+        [Print]</span><span class="hljs-template-variable">{fact}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{0}</span><span class="xml">
+    }
+}
+
+[Main]</span>
+</code></pre>
+<h3 id="fibonacci-sequence">Fibonacci Sequence</h3>
+<p>The Fibonacci Sequence is a series of numbers in which each number is the sum of the two preceding ones, usually starting with 0 and 1.</p>
+<pre><code class="lang-TACL"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Fibonacci</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt;{num}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        [Condition]{
+            [Or]{[Equals]{num, 0}</span><span class="xml">, [Equals]</span><span class="hljs-template-variable">{num, 1}</span><span class="xml">},
+            <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{num}</span><span class="xml">,
+            <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span>[Add]</span><span class="hljs-template-variable">{[Fibonacci]{[Subtract]{num, 1}</span><span class="xml">}, [Fibonacci]</span><span class="hljs-template-variable">{[Subtract]{num, 2}</span><span class="xml">}}
+        }
+    }
+}
+
+<span class="hljs-tag">&lt;<span class="hljs-name">Main</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt; is {}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        &lt;num&gt;10
+        &lt;fibo&gt;[Fibonacci]{num}</span><span class="xml">
+        [Print]</span><span class="hljs-template-variable">{fibo}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{0}</span><span class="xml">
+    }
+}
+
+[Main]</span>
+</code></pre>
+<p>This program generates the Fibonacci number at a specified position in the sequence. The <code>Fibonacci</code> action checks if the input number is 0 or 1. If it is, it returns the number itself (since the first two numbers in the Fibonacci sequence are 0 and 1); otherwise, it calculates the Fibonacci number as the sum of the Fibonacci numbers at positions (number - 1) and (number - 2).</p>
+<h3 id="reverse-a-string">Reverse a String</h3>
+<p>In this program, the <code>Reverse</code> action iterates backwards through the input string, concatenating each character onto a new string <code>reversed</code>.</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;Reverse&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{str}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;length&gt;</span>[Length]{str}
+        <span class="hljs-symbol">&lt;reversed&gt;</span><span class="hljs-string">""</span>
+        [<span class="hljs-built_in">index</span>&gt;[Subtract]{length, <span class="hljs-number">1</span>}
+        [While]{
+            [GreaterThanOrEqual]{<span class="hljs-built_in">index</span>, <span class="hljs-number">0</span>},
+            <span class="hljs-symbol">&lt;Body&gt;</span>{
+                <span class="hljs-symbol">&lt;reversed&gt;</span>[Concatenate]{reversed, [AccessAt]{str, <span class="hljs-built_in">index</span>}}
+                <span class="hljs-symbol">&lt;index&gt;</span>[Subtract]{<span class="hljs-built_in">index</span>, <span class="hljs-number">1</span>}
+            }
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{reversed}
+    }
+}
+
+<span class="hljs-symbol">&lt;Main&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;str&gt;</span><span class="hljs-string">"Hello, World!"</span>
+        <span class="hljs-symbol">&lt;reversed&gt;</span>[Reverse]{str}
+        [<span class="hljs-keyword">Print</span>]{reversed}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+[Main]
+</code></pre>
+<p>Regards,</p>
+<p>Cora</p>
+<h2 id="appendix-turing-completeness-review">Appendix: Turing-Completeness Review</h2>
+<p>A computational system is considered Turing-complete if it can simulate any Turing machine. This means that the system can perform any computation that can be performed by a Turing machine, given enough time and memory. The qualifiers for Turing-completeness generally include:</p>
+<ol>
+<li><strong>Conditionals</strong>: The system must support conditional branching, such as if-then-else constructs, which allow the system to execute different instructions based on certain conditions.</li>
+<li><strong>Variables and State</strong>: The system must have a way to store and manipulate information, typically through variables or some form of mutable state.</li>
+<li><strong>Loops or Recursion</strong>: The system must be capable of repeating a set of instructions indefinitely, either through loops or recursive function calls.</li>
+<li><strong>Input/Output</strong>: The system should be able to interact with some form of input and produce output.</li>
+<li><strong>Infinite Loops or Unbounded Recursion</strong>: The system must have the ability to perform unbounded loops or recursion, allowing for the potential of infinite computation, which is a hallmark of Turing machines.</li>
+<li><strong>Arbitrary Levels of Indirection/Nesting</strong>: The system should support arbitrary levels of indirection, such as pointers to pointers or nested function calls, to provide the necessary complexity and depth.</li>
+</ol>
+<p>Evaluating TACL against these qualifiers:</p>
+<ol>
+<li><strong>Conditionals</strong>: TACL has <code>[Condition]</code> with <code>{condition, [ActionIfTrue]{parameters}, [ActionIfFalse]{parameters}}</code> for if-then-else statements, fulfilling this requirement.</li>
+<li><strong>Variables and State</strong>: TACL uses <em>Things</em> as variables to store and manipulate data. The language supports assignment and transportation of <em>Things</em>, allowing for mutable state.</li>
+<li><strong>Loops or Recursion</strong>: TACL includes constructs for both while loops (<code>[While]</code>) and for loops (<code>[For]</code>). Although recursion isn&#39;t explicitly mentioned, the ability to define actions (<code>[DefineAction]</code>) implies that functions can be created, which could potentially call themselves, achieving recursion.</li>
+<li><strong>Input/Output</strong>: TACL includes the <code>[Print]</code> action for output. While input isn&#39;t explicitly detailed in the provided specification, the <code>&lt;Input&gt;</code> parameter in action definitions suggests the language can accept input.</li>
+<li><strong>Infinite Loops or Unbounded Recursion</strong>: Since TACL has while loops, it can theoretically run an infinite loop, assuming there are no built-in stopping conditions or limitations on loop execution.</li>
+<li><strong>Arbitrary Levels of Indirection/Nesting</strong>: TACL&#39;s ability to define actions, which can take other actions as parameters, and the use of <em>Boxes</em> and <em>Piles</em> for collections, implies that it supports multiple levels of indirection or nesting.</li>
+</ol>
+<p>Based on the provided language specification, TACL fulfills the basic criteria for Turing-completeness. It has control flow constructs, supports mutable state, can perform indefinite computation through loops, and seems to support function definition and invocation, which could allow for recursion. It is also suggested that it can handle input and output. However, without explicit evidence of the language&#39;s capability to handle unbounded recursion or to perform arbitrary computation, the claim of Turing-completeness should be considered with a degree of caution. The actual Turing-completeness of TACL would be best proven through implementation and testing, demonstrating that it can indeed simulate any Turing machine.</p>
+<p>Regards,</p>
+<p>Cora</p>
+<h2 id="appendix-syntax-completion-surveys">Appendix: Syntax Completion Surveys</h2>
+<p>These requests were given to Cora with the task of searching out what needs to be added or considered to the language.</p>
+<h3 id="bubble-sort">Bubble Sort</h3>
+<h4 id="prompt-for-reviewer">Prompt for Reviewer</h4>
+<p>&quot;Use this language to program a bubble sort. Walk me through the bubble sort algorithm first, then implement it in TACL. Use a Main action as the execution point and as many other actions as needed. Afterward, explain any Actions you had to write from scratch that weren&#39;t in the reference, or any language concepts we need to work on to ensure completeness.&quot;</p>
+<h4 id="response-from-reviewer">Response from Reviewer</h4>
+<p>Bubble sort is a simple sorting algorithm that works by repeatedly stepping through the list, comparing each pair of adjacent items and swapping them if they are in the wrong order. The pass through the list is repeated until no more swaps are needed, indicating that the list is sorted.</p>
+<p>The algorithm can be broken down into the following steps:</p>
+<ol>
+<li>Start from the beginning of the list.</li>
+<li>Compare the first element with the second element.</li>
+<li>If the first element is greater than the second element, they are swapped.</li>
+<li>The next pair of adjacent elements is compared and the process is repeated until the end of the list.</li>
+<li>This process continues, making multiple passes through the list until no more swaps are needed.</li>
+</ol>
+<p>Here&#39;s how we can implement Bubble sort in TACL:</p>
+<pre><code class="lang-TACL"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Swap</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt;{pile, index1, index2}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        &lt;temp&gt;[AccessAt]{pile, index1}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">pile</span>&gt;</span>[ReplaceAt]</span><span class="hljs-template-variable">{pile, index1, [AccessAt]{pile, index2}</span><span class="xml">}
+        <span class="hljs-tag">&lt;<span class="hljs-name">pile</span>&gt;</span>[ReplaceAt]</span><span class="hljs-template-variable">{pile, index2, temp}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{pile}</span><span class="xml">
+    }
+}
+
+<span class="hljs-tag">&lt;<span class="hljs-name">BubbleSort</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt;{pile}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        &lt;length&gt;[Length]{pile}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">swapped</span>&gt;</span>"true"
+        [While]</span><span class="hljs-template-variable">{
+            [Equals]{swapped, "true"}</span><span class="xml">,
+            <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+                &lt;swapped&gt;"false"
+                &lt;i&gt;0
+                [While]{
+                    [LessThan]{i, [Subtract]{length, 1}</span><span class="xml">},
+                    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+                        [Condition]{
+                            [GreaterThan]{[AccessAt]{pile, i}</span><span class="xml">, [AccessAt]</span><span class="hljs-template-variable">{pile, [Add]{i, 1}</span><span class="xml">}},
+                            <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+                                &lt;pile&gt;[Swap]{pile, i, [Add]{i, 1}</span><span class="xml">}
+                                <span class="hljs-tag">&lt;<span class="hljs-name">swapped</span>&gt;</span>"true"
+                            },
+                            <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{}</span><span class="xml">
+                        }
+                        <span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span>[Add]</span><span class="hljs-template-variable">{i, 1}</span><span class="xml">
+                    }
+                }
+            }
+        }
+        <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{pile}</span><span class="xml">
+    }
+}
+
+<span class="hljs-tag">&lt;<span class="hljs-name">Main</span>&gt;</span>[DefineAction]</span><span class="hljs-template-variable">{
+    &lt;Input&gt; is {}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">Default</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Error</span>&gt;</span>"An error has occurred."
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span></span><span class="hljs-template-variable">{
+        &lt;pile&gt;{(1)4, (2)2, (3)9, (4)6, (5)7, (6)1}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">sorted</span>&gt;</span>[BubbleSort]</span><span class="hljs-template-variable">{pile}</span><span class="xml">
+        [Print]</span><span class="hljs-template-variable">{sorted}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">Return</span>&gt;</span></span><span class="hljs-template-variable">{0}</span><span class="xml">
+    }
+}
+
+
+
+[Main]</span>
+</code></pre>
+<p>In this code, we define two new actions <code>Swap</code> and <code>BubbleSort</code>. </p>
+<p><code>Swap</code> is a new action which swaps two elements at the given indexes in a pile. It first saves the element at <code>index1</code> into a temporary variable <code>temp</code>, then replaces the element at <code>index1</code> with the element at <code>index2</code>, and finally replaces the element at <code>index2</code> with <code>temp</code>. It returns the modified pile.</p>
+<p><code>BubbleSort</code> is the main action that implements the bubble sort algorithm. It takes a pile as input and sorts it in ascending order. It uses a nested while loop to repeatedly traverse the pile and swap any adjacent elements that are in the wrong order. The outer while loop continues until a complete pass through the pile is made without any swaps, indicating that the pile is sorted. </p>
+<p>The <code>Main</code> action creates a pile of unsorted numbers, sorts it using <code>BubbleSort</code>, prints the sorted pile, and returns 0.</p>
+<p>In terms of language completeness, we had to define a <code>Swap</code> action from scratch because swapping two elements in a list is a common operation in many algorithms, including sorting algorithms. Also, the <code>ReplaceAt</code> action was used, which replaces an element at a specific index in a pile. It&#39;s a core operation for manipulating lists or piles in our language. It would be beneficial to include these actions in the standard library of TACL. </p>
+<p>Regards,</p>
+<p>Cora</p>
+<h3 id="binary-search-tree">Binary Search Tree</h3>
+<h4 id="prompt-for-reviewer">Prompt for Reviewer</h4>
+<p>&quot;Use this language to program a binary search tree. Walk me through the binary search algorithm first, them implement it in TAC. Use a Main action as the execution point and as many other actions as needed. Afterward, explain any Actions you had to write from scratch that weren&#39;t in the reference, or any language concepts we need to work on to ensure completeness.&quot;</p>
+<h4 id="response-from-reviewer">Response from Reviewer</h4>
+<p>A binary search tree is a data structure that allows for efficient searching, insertion, and deletion of values. The key property of a binary search tree is that for any given node, all nodes in its left subtree have values less than the node’s value, and all nodes in its right subtree have values greater than the node’s value.</p>
+<p>The binary search algorithm is a method for finding a target value within a sorted array. It halves the search space at every step until the target value is found. If the search ends with the remaining half being empty, the target is not in the array. </p>
+<p>Here&#39;s the step by step process for binary search algorithm:</p>
+<ol>
+<li>Compare the target value to the middle element of the array.</li>
+<li>If they are not equal, the half in which the target cannot lie is eliminated and the search continues on the remaining half, again taking the middle element to compare to the target value, and repeating this until the target value is found.</li>
+<li>If the search ends with the remaining half being empty, the target is not in the array.</li>
+</ol>
+<p>Now, let&#39;s implement this in TACL language.</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;BinarySearchTree&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{value, <span class="hljs-keyword">left</span>, <span class="hljs-keyword">right</span>}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;value&gt;</span>value
+        <span class="hljs-symbol">&lt;left&gt;</span><span class="hljs-keyword">left</span>
+        <span class="hljs-symbol">&lt;right&gt;</span><span class="hljs-keyword">right</span>
+        <span class="hljs-symbol">&lt;Return&gt;</span>{value, <span class="hljs-keyword">left</span>, <span class="hljs-keyword">right</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;Insert&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{tree, value}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        [Condition]{
+            [Equals]{tree, null},
+            <span class="hljs-symbol">&lt;Return&gt;</span>[BinarySearchTree]{value, null, null},
+            <span class="hljs-symbol">&lt;Body&gt;</span>{
+                [root, <span class="hljs-keyword">left</span>, <span class="hljs-keyword">right</span>][Split]{tree, <span class="hljs-number">3</span>}
+                [Condition]{
+                    [LessThan]{value, root},
+                    <span class="hljs-symbol">&lt;left&gt;</span>[Insert]{<span class="hljs-keyword">left</span>, value},
+                    <span class="hljs-symbol">&lt;right&gt;</span>[Insert]{<span class="hljs-keyword">right</span>, value}
+                }
+                <span class="hljs-symbol">&lt;Return&gt;</span>[BinarySearchTree]{root, <span class="hljs-keyword">left</span>, <span class="hljs-keyword">right</span>}
+            }
+        }
+    }
+}
+
+<span class="hljs-symbol">&lt;Search&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{tree, value}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-string">"Value not found."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        [Condition]{
+            [Equals]{tree, null},
+            <span class="hljs-symbol">&lt;Return&gt;</span><span class="hljs-string">"Value not found."</span>,
+            <span class="hljs-symbol">&lt;Body&gt;</span>{
+                [root, <span class="hljs-keyword">left</span>, <span class="hljs-keyword">right</span>][Split]{tree, <span class="hljs-number">3</span>}
+                [Condition]{
+                    [Equals]{value, root},
+                    <span class="hljs-symbol">&lt;Return&gt;</span><span class="hljs-string">"Value found."</span>,
+                    <span class="hljs-symbol">&lt;Body&gt;</span>{
+                        [Condition]{
+                            [LessThan]{value, root},
+                            <span class="hljs-symbol">&lt;Return&gt;</span>[Search]{<span class="hljs-keyword">left</span>, value},
+                            <span class="hljs-symbol">&lt;Return&gt;</span>[Search]{<span class="hljs-keyword">right</span>, value}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+<span class="hljs-symbol">&lt;Main&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span> <span class="hljs-keyword">is</span> {}
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;Error&gt;</span><span class="hljs-string">"An error has occurred."</span>
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;tree&gt;</span>null
+        <span class="hljs-symbol">&lt;values&gt;</span>{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>}
+        <span class="hljs-symbol">&lt;num_values&gt;</span>[Length]{<span class="hljs-built_in">values</span>}
+        <span class="hljs-symbol">&lt;index&gt;</span><span class="hljs-number">0</span>
+        [While]{
+            [LessThan]{<span class="hljs-built_in">index</span>, num_values},
+            <span class="hljs-symbol">&lt;Body&gt;</span>{
+                <span class="hljs-symbol">&lt;value&gt;</span>[AccessAt]{<span class="hljs-built_in">values</span>, <span class="hljs-built_in">index</span>}
+                <span class="hljs-symbol">&lt;tree&gt;</span>[Insert]{tree, value}
+                <span class="hljs-symbol">&lt;index&gt;</span>[Add]{<span class="hljs-built_in">index</span>, <span class="hljs-number">1</span>}
+            }
+        }
+        <span class="hljs-symbol">&lt;search_value&gt;</span><span class="hljs-number">5</span>
+        <span class="hljs-symbol">&lt;result&gt;</span>[Search]{tree, search_value}
+        [<span class="hljs-keyword">Print</span>]{result}
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+[Main]
+</code></pre>
+<p>We have defined a few Actions from scratch for this implementation, namely <code>BinarySearchTree</code>, <code>Insert</code>, and <code>Search</code>. The <code>BinarySearchTree</code> Action is used to create a new binary search tree node. The <code>Insert</code> Action is used to insert a value into the binary search tree. The <code>Search</code> Action is used to find a value in the binary search tree.</p>
+<p>Language Concepts to Improve:</p>
+<ol>
+<li><strong>Null Handling</strong>: Currently, we have to explicitly check if the tree is null before calling Actions like <code>Insert</code> and <code>Search</code>. Adding null safety to the language would improve its robustness and user-friendliness.</li>
+<li><strong>OOP Support</strong>: Binary search tree is a classic example where object-oriented programming is beneficial. If we had classes and objects in TACL, we could encapsulate the value, left, and right inside a <code>BinarySearchTree</code> class and define <code>Insert</code> and <code>Search</code> as methods of this class.</li>
+<li><strong>Error Handling</strong>: We could improve our error messages by including the value that caused the error and the Action in which the error occurred.</li>
+</ol>
+<p>Regards,</p>
+<p>Cora</p>
+<h3 id="conway-s-game-of-life">Conway&#39;s Game of Life</h3>
+<h4 id="prompt-for-reviewer">Prompt for Reviewer</h4>
+<p>&quot;Please write me a program in TACL for Conway&#39;s Game of Life. First explain how the Game of Life Works, then write the code in TACL. &quot;</p>
+<h4 id="response-from-reviewer">Response from Reviewer</h4>
+<p>Conway&#39;s Game of Life is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. It is a cellular automaton invented by mathematician John Horton Conway. The &quot;game&quot; is a simulation that follows a simple set of rules on a grid of cells, where each cell can be either alive or dead.</p>
+<p><strong>Rules of Conway&#39;s Game of Life:</strong></p>
+<ol>
+<li><strong>Underpopulation</strong>: If a living cell is surrounded by fewer than two living cells, it dies.</li>
+<li><strong>Survival</strong>: If a living cell is surrounded by two or three living cells, it survives to the next generation.</li>
+<li><strong>Overpopulation</strong>: If a living cell is surrounded by more than three living cells, it dies.</li>
+<li><strong>Reproduction</strong>: If a dead cell is surrounded by exactly three living cells, it becomes a live cell.</li>
+</ol>
+<p>The game proceeds in discrete time steps, called generations. The entire board is updated at once. The initial pattern constitutes the seed of the system, and the first generation is created by applying the above rules simultaneously to every cell in the seed—live or dead cells are birthed or die for the next generation.</p>
+<p>Let&#39;s write the program in TACL, assuming we have a grid represented by a Pile of Piles, where each sub-Pile represents a row and each Thing in the Pile represents a cell. True indicates a live cell, and False indicates a dead cell.</p>
+<pre><code class="lang-TACL"><span class="hljs-symbol">&lt;UpdateCell&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{rowIndex, colIndex, grid},
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Invalid cell coordinates."</span>,
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;neighbors&gt;</span> <span class="hljs-keyword">is</span> [
+            GetNeighbors] with {rowIndex, colIndex, grid}
+        <span class="hljs-symbol">&lt;aliveNeighbors&gt;</span>[CountTrue]{neighbors}
+        <span class="hljs-symbol">&lt;currentState&gt;</span>[AccessAt]{grid, rowIndex, colIndex}
+        <span class="hljs-symbol">&lt;newState&gt;</span>False
+        [Condition]{
+            [Equals]{aliveNeighbors, <span class="hljs-number">3</span>},
+            <span class="hljs-symbol">&lt;newState&gt;</span>True,
+            [Condition]{
+            [And]{[Equals]{aliveNeighbors, <span class="hljs-number">2</span>}, currentState},
+                <span class="hljs-symbol">&lt;newState&gt;</span>True,
+                <span class="hljs-symbol">&lt;newState&gt;</span>False
+            }
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{newState}
+    }
+}
+
+<span class="hljs-symbol">&lt;GetNeighbors&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{rowIndex, colIndex, grid},
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Invalid cell coordinates."</span>,
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;neighbors&gt;</span><span class="hljs-symbol">&lt;Box&gt;</span>{}
+        <span class="hljs-symbol">&lt;maxRows&gt;</span>[Subtract]{[PileLength]{grid}, <span class="hljs-number">1</span>}
+        <span class="hljs-symbol">&lt;maxCols&gt;</span>[Subtract]{[PileLength]{[AccessAt]{grid, rowIndex}}, <span class="hljs-number">1</span>}
+        <span class="hljs-symbol">&lt;StartRow&gt;</span>[Max]{[Subtract]{rowIndex, <span class="hljs-number">1</span>}, <span class="hljs-number">0</span>}
+        <span class="hljs-symbol">&lt;EndRow&gt;</span>[Min]{[Add]{rowIndex, <span class="hljs-number">1</span>}, <span class="hljs-symbol">&lt;maxRows&gt;</span>}
+        <span class="hljs-symbol">&lt;StartCol&gt;</span>[Max]{[Subtract]{colIndex, <span class="hljs-number">1</span>}, <span class="hljs-number">0</span>}
+        <span class="hljs-symbol">&lt;EndCol&gt;</span>[Min]{[Add]{colIndex, <span class="hljs-number">1</span>}, <span class="hljs-symbol">&lt;maxCols&gt;</span>}
+        [For]{
+            <span class="hljs-symbol">&lt;i&gt;</span><span class="hljs-symbol">&lt;StartRow&gt;</span>,
+            [LessThanOrEqual]{<span class="hljs-symbol">&lt;i&gt;</span>, <span class="hljs-symbol">&lt;EndRow&gt;</span>},
+            <span class="hljs-symbol">&lt;i&gt;</span>[Increment]{<span class="hljs-symbol">&lt;i&gt;</span>, <span class="hljs-number">1</span>},
+            [For]{
+                <span class="hljs-symbol">&lt;j&gt;</span><span class="hljs-symbol">&lt;StartCol&gt;</span>,
+                [LessThanOrEqual]{<span class="hljs-symbol">&lt;j&gt;</span>, <span class="hljs-symbol">&lt;EndCol&gt;</span>},
+                <span class="hljs-symbol">&lt;j&gt;</span>[Increment]{<span class="hljs-symbol">&lt;j&gt;</span>, <span class="hljs-number">1</span>},
+                [Condition]{
+                    [Or]{
+                        [Not]{[Equals]{<span class="hljs-symbol">&lt;i&gt;</span>, rowIndex}},
+                        [Not]{[Equals]{<span class="hljs-symbol">&lt;j&gt;</span>, colIndex}}
+                    },
+                    [AddToBox]{<span class="hljs-symbol">&lt;neighbors&gt;</span>, [AccessAt]{grid, <span class="hljs-symbol">&lt;i&gt;</span>, <span class="hljs-symbol">&lt;j&gt;</span>}},
+                    {}
+                }
+            }
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{neighbors}
+    }
+}
+
+<span class="hljs-symbol">&lt;CountTrue&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{box},
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Input must be a Box."</span>,
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;count&gt;</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+        [ForEach]{
+            <span class="hljs-symbol">&lt;thing&gt;</span><span class="hljs-symbol">&lt;box&gt;</span>,
+            [Condition]{<span class="hljs-symbol">&lt;thing&gt;</span>, <span class="hljs-symbol">&lt;count&gt;</span>[Increment]{<span class="hljs-symbol">&lt;count&gt;</span>, <span class="hljs-number">1</span>}, {}}
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-symbol">&lt;count&gt;</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;GameOfLifeStep&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{grid},
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-symbol">&lt;error&gt;</span><span class="hljs-string">"Input must be a grid."</span>,
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;newGrid&gt;</span><span class="hljs-symbol">&lt;Box&gt;</span>{}
+        <span class="hljs-symbol">&lt;maxRows&gt;</span>[Subtract]{[PileLength]{grid}, <span class="hljs-number">1</span>}
+        <span class="hljs-symbol">&lt;maxCols&gt;</span>[Subtract]{[PileLength]{[AccessAt]{grid, <span class="hljs-number">0</span>}}, <span class="hljs-number">1</span>}
+        [For]{
+            <span class="hljs-symbol">&lt;rowIndex&gt;</span><span class="hljs-number">0</span>,
+            [LessThanOrEqual]{<span class="hljs-symbol">&lt;rowIndex&gt;</span>, <span class="hljs-symbol">&lt;maxRows&gt;</span>},
+            <span class="hljs-symbol">&lt;rowIndex&gt;</span>[Increment]{<span class="hljs-symbol">&lt;rowIndex&gt;</span>, <span class="hljs-number">1</span>},
+            [For]{
+                <span class="hljs-symbol">&lt;colIndex&gt;</span><span class="hljs-number">0</span>,
+                [LessThanOrEqual]{<span class="hljs-symbol">&lt;colIndex&gt;</span>, <span class="hljs-symbol">&lt;maxCols&gt;</span>},
+                <span class="hljs-symbol">&lt;colIndex&gt;</span>[Increment]{<span class="hljs-symbol">&lt;colIndex&gt;</span>, <span class="hljs-number">1</span>},
+                <span class="hljs-symbol">&lt;newState&gt;</span>[UpdateCell]{<span class="hljs-symbol">&lt;rowIndex&gt;</span>, <span class="hljs-symbol">&lt;colIndex&gt;</span>, <span class="hljs-symbol">&lt;grid&gt;</span>}
+                [AddToPile]{[AccessAt]{<span class="hljs-symbol">&lt;newGrid&gt;</span>, <span class="hljs-symbol">&lt;rowIndex&gt;</span>}, <span class="hljs-symbol">&lt;newState&gt;</span>}
+            }
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-symbol">&lt;newGrid&gt;</span>}
+    }
+}
+
+<span class="hljs-symbol">&lt;Main&gt;</span>[DefineAction]{
+    <span class="hljs-symbol">&lt;Input&gt;</span>{},
+    <span class="hljs-symbol">&lt;Default&gt;</span><span class="hljs-string">"Game of Life ended unexpectedly."</span>,
+    <span class="hljs-symbol">&lt;Body&gt;</span>{
+        <span class="hljs-symbol">&lt;grid&gt;</span>{
+            {(<span class="hljs-number">1</span>)False, False, True, False, False}
+            {(<span class="hljs-number">2</span>)False, False, True, False, False}
+            {(<span class="hljs-number">3</span>)False, False, True, False, False}
+            {(<span class="hljs-number">4</span>)False, False, False, False, False}
+            {(<span class="hljs-number">5</span>)False, False, False, False, False}
+        }
+        <span class="hljs-symbol">&lt;iterations&gt;</span><span class="hljs-number">5</span>
+        [For]{
+            <span class="hljs-symbol">&lt;i&gt;</span><span class="hljs-number">0</span>,
+            [LessThan]{i, <span class="hljs-symbol">&lt;iterations&gt;</span>},
+            <span class="hljs-symbol">&lt;i&gt;</span>[Increment]{i, <span class="hljs-number">1</span>},
+            <span class="hljs-symbol">&lt;grid&gt;</span>[GameOfLifeStep]{grid}
+            [<span class="hljs-keyword">Print</span>]{grid}
+        }
+        <span class="hljs-symbol">&lt;Return&gt;</span>{<span class="hljs-number">0</span>}
+    }
+}
+
+[Main]
+</code></pre>
+<p>In this code, <code>GetNeighbors</code> retrieves the neighboring cells of a given cell, <code>CountTrue</code> counts how many of those neighbors are alive, <code>UpdateCell</code> decides the fate of a cell based on the rules of the game, and <code>GameOfLifeStep</code> updates the entire grid for a single generation. The <code>Main</code> action initializes the game with a predefined grid and runs through a set number of iterations, printing the grid at each step.</p>
+<p>Please note that this is a conceptual representation of Conway&#39;s Game of Life in TACL. Some actions like <code>[ForEach]</code>, <code>[AddToBox]</code>, <code>[AddToPile]</code>, <code>[PileLength]</code>, <code>[Max]</code>, and <code>[Min]</code> are assumed to exist for the purpose of this exercise, and the code structure follows the specification provided earlier.</p>
+<p>Regards,</p>
+<p>Cora</p>
+<h2 id="appendix-syntactic-sugar-">Appendix: &quot;Syntactic Sugar&quot;</h2>
+<p>In TACL, syntactic sugar can be found in various places to make the syntax more concise and to improve readability. Here are some examples:</p>
+<ol>
+<li><strong>Concise Assignment</strong>:<ul>
+<li>Plain form: <code>&lt;Assignment&gt; is 5</code></li>
+<li>Concise form: <code>&lt;Assignment&gt;5</code></li>
+</ul>
+</li>
+<li><strong>Concise Action Invocation</strong>:<ul>
+<li>Plain form: <code>&lt;Result&gt; is [Action] with {param1, param2, ...}</code></li>
+<li>Concise form: <code>&lt;Result&gt;[Action]{param1, param2, ...}</code></li>
+</ul>
+</li>
+<li><strong>Concise Action with Transport</strong>:<ul>
+<li>Plain form: <code>[Action] with {param1, param2, ...}</code></li>
+<li>Concise form: <code>[Action]{param1, param2, ...}</code></li>
+</ul>
+</li>
+<li><strong>Concise Box and Pile Initialization</strong>:<ul>
+<li>Plain form for Box: <code>&lt;myBox&gt; is {Thing1, Thing2, Thing3}</code></li>
+<li>Concise form for Box: <code>&lt;myBox&gt;{Thing1, Thing2, Thing3}</code></li>
+<li>Plain form for Pile: <code>&lt;myPile&gt; is {Thing1 at 1, Thing2 at 2, Thing3 at 3}</code></li>
+<li>Concise form for Pile: <code>&lt;myPile&gt;{(1)Thing1, (2)Thing2, (3)Thing3}</code></li>
+</ul>
+</li>
+<li><strong>Concise Control Flow</strong>:<ul>
+<li>If-Then-Else Plain form: <code>[Condition] with {condition, [ActionIfTrue]{params}, [ActionIfFalse]{params}}</code></li>
+<li>If-Then-Else Concise form: <code>[Condition]{condition, [ActionIfTrue]{params}, [ActionIfFalse]{params}}</code></li>
+<li>While Loop Plain form: <code>[While] with {[ConditionAction]{params}, [ActionSequence]{params}}</code></li>
+<li>While Loop Concise form: <code>[While]{[ConditionAction]{params}, [ActionSequence]{params}}</code></li>
+<li>For Loop Plain form: <code>[For] with {[InitializationAction]{params}, [ConditionAction]{params}, [UpdateAction]{params}, [ActionSequence]{params}}</code></li>
+<li>For Loop Concise form: <code>[For]{[InitializationAction]{params}, [ConditionAction]{params}, [UpdateAction]{params}, [ActionSequence]{params}}</code></li>
+</ul>
+</li>
+<li><strong>Index Context Simplification</strong>:<ul>
+<li>Instead of using &#39;at&#39; for indices in a Pile in plain form, you can use parentheses:<ul>
+<li>Plain form: <code>Thing1 at 1</code></li>
+<li>Concise form: <code>(1)Thing1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Omission of Commas</strong>:<ul>
+<li>When a Box or Pile contents are fully separated by lines, commas can be omitted:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="lang-TACL"> &lt;myBox&gt;{
+   Thi<span class="hljs-symbol">ng1</span>
+   Thi<span class="hljs-symbol">ng2</span>
+   Thi<span class="hljs-symbol">ng3</span>
+ }
+</code></pre>
+<p> Instead of:</p>
+<pre><code class="lang-TACL"> &lt;myBox&gt;{Thi<span class="hljs-symbol">ng1</span>, Thi<span class="hljs-symbol">ng2</span>, Thi<span class="hljs-symbol">ng3</span>}
+</code></pre>
+<p>Each of these examples of syntactic sugar in TACL allows for a more streamlined way of writing the same instruction, catering to different preferences of verbosity and readability.</p>
+<p>Regards,</p>
+<p>Cora</p>
+<h2 id="appendix-paradigms">Appendix: Paradigms</h2>
+<p>The Thing-Action-Context Language (TACL) specification suggests a multi-paradigm approach. Below are the paradigms that TACL seems to follow, based on the syntax and features described in the specification:</p>
+<ol>
+<li><strong>Imperative Programming</strong>: TACL syntax specifies explicit sequences of commands for the computer to perform. This is evident from the control flow constructs (<code>[For]</code>, <code>[While]</code>, <code>[Condition]</code>) and the action invocation syntax (<code>&lt;Result&gt;[Action]{param1, param2, ...}</code>), which directly manipulate program state.</li>
+<li><strong>Procedural Programming</strong>: As a subset of imperative programming, TACL supports procedures or actions (<code>[DefineAction]</code>) that encapsulate a sequence of steps, receive input parameters, and return a result. This is analogous to functions or procedures in other procedural languages.</li>
+<li><strong>Object-Oriented Programming (OOP)</strong>: While TACL does not explicitly mention classes or objects, the concept of &quot;Things&quot; as entities that can encapsulate data and actions (methods) suggests an object-like structure. However, the language specification does not provide details on inheritance or polymorphism, which are hallmarks of OOP, so it may only partially implement this paradigm.</li>
+<li><strong>Declarative Programming</strong>: This is less apparent, but the specification&#39;s emphasis on readability and using constructs that resemble natural language could be interpreted as a nod to declarative programming. Declarative languages focus on the &quot;what&quot; rather than the &quot;how&quot; of problem-solving. TACL&#39;s syntax for defining actions and handling errors (<code>[Attempt]</code>) abstracts away some of the operational details, focusing on the outcomes rather than the process.</li>
+<li><strong>Functional Programming</strong>: There is no explicit mention of functional programming features such as first-class functions, immutability, or pure functions. However, the action definitions and invocations resemble the use of functions in functional languages. Without further details on how state is managed or whether functions are first-class citizens in TACL, it&#39;s difficult to determine the extent to which it adopts functional programming principles.</li>
+<li><strong>Event-Driven Programming</strong>: TACL&#39;s error handling mechanism (<code>[Attempt]</code>) suggests some degree of event-driven programming where actions are taken in response to events (in this case, exceptions). However, there is no mention of event loops or event handlers, which are common in event-driven systems.</li>
+</ol>
+<p>In conclusion, TACL appears to most strongly align with imperative and procedural programming paradigms, as it emphasizes explicit sequences of operations through actions (procedures/functions) and state manipulation. It has object-oriented tendencies with its concept of &quot;Things&quot; but lacks a full suite of OOP features based on the provided specification. The declarative aspect is hinted at through its readable syntax but is not a primary focus. Functional programming elements are not evident from the specification. Finally, while there is some element of event-driven programming in the error handling, this alone does not classify TACL as an event-driven language.</p>
+<p>Regards,</p>
+<p>Cora</p>
+<p>==END AI-GENERATED CONTENT==</p>
+
+        
+        
+        </p1>
+    </main>
+
+	<!-- Template Footer for Every Page Begins Here -->
+        <footer>
+            <p><img src="images/NaasEnergyBadge.png"> Copyright &copy; 2023 Corey Naas</p>
+        </footer>
+	<!-- Template Footer for Every Page Ends Here -->
+		</div>
+	</body>
+</html>

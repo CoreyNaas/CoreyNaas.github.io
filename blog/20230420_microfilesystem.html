@@ -1,0 +1,288 @@
+<!--Declare document type -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- MAKE SURE TO UPDATE PAGE TITLE-->
+		<title>Micro-File-System (MFS) - Naas Energy</title>
+		<!-- Link the external "style3" CSS file from the root to style this page-->
+		<link rel="stylesheet" href="/css/style3.css" type="text/css">
+	</head>
+	<body>
+		<!-- Pull "container" style from css file -->
+		<div id="container">
+
+	<!-- Template Header for Every Page Begins Here -->
+		<header>
+        <div style="display:inline-block;">
+            <h1>Naas Energy</h1>
+			<h2>The Official WorldWideWeblog of Corey Naas</h2>
+			<nav>
+                <b><a href="/index.html">Home</a></b>&emsp;&emsp;
+                <a href="/blog.html">Blog</a> / <a href="/microblog.html">Microblog</a>&emsp;&emsp;
+				<a href="/writings.html">Writings</a>
+                <br><br>
+                <a href="/projects.html">Projects</a>&emsp;&emsp;
+                <a href="/aboutme.html">About Me</a>&emsp;&emsp;
+                <b><a href="/now.html">Now</a></b>
+			</nav>
+			<br>
+        </div>
+        <div style="display:inline-block;vertical-align:top;">
+            <img src="/images/Corey.JPG" width="200" />
+        </div>
+		</header>
+	<!-- Template Header for Every Page Ends Here -->
+  
+    <main>
+      <m1>Micro-File-System (MFS)</m1><br>
+        <p1>
+            <!-- Main Post Text Goes Here! -->
+
+<p><em>2023-04-20</em></p>
+<p><em>Corey Naas</em></p>
+<h1 id="micro-file-system-mfs-ideas-and-prompt">Micro-File-System (MFS) Ideas and Prompt</h1>
+<p>I got pretty entranced watching <a href="https://www.youtube.com/watch?v=qLrTcmyj7Ic">two</a> <a href="https://www.youtube.com/watch?v=q3_V0EJcD-k">and</a> a <a href="https://www.youtube.com/watch?v=gKDJLa0OoDc">half</a> videos about the NTFS file system, and got started writing my own. Or the plan for one. We&#39;ll see if I actually do it!</p>
+<h1 id="initial-thought-that-prompted-all-this">Initial thought that prompted all this</h1>
+<p>To &quot;move&quot; file1 from folder1 to folder2, <em>all</em> you have to do is three things:</p>
+<ol>
+<li>add file1 address to folder2 metadata</li>
+<li>add folder2 address to file1 metadata</li>
+<li>remove file1&#39;s address from folder1&#39;s metadata</li>
+</ol>
+<p>My only experience with filesystems is some in computer architectures years ago, and a few videos earlier tonight about the linux filsystem hierarchy, and then a few on filesystems in general.</p>
+<h1 id="outstanding-questions">Outstanding Questions</h1>
+<ul>
+<li>Folder metadata includes list of file IDs<ul>
+<li>Should this be the address instead?</li>
+</ul>
+</li>
+<li>File metadata includes folder ID<ul>
+<li>Should this be the address instead?</li>
+<li>ID vs address battle can be summed up as indirect vs direct, dynamic vs fast</li>
+</ul>
+</li>
+<li>Should clusters be renamed to &quot;handies&quot; because they&#39;re a &quot;handy&quot; amount of data to store all in one place?</li>
+</ul>
+<h1 id="formal-prompt-and-goal">Formal Prompt and Goal</h1>
+<p>Given a &quot;disk&quot; of an array of BYTEs as address spaces (e.g. &quot;BYTE[4096]&quot;), in your language of choice, create a &quot;filsystem&quot; managing the data content stored in the &quot;disk&quot; using a file and folder table at the beginning of the disk. Folders and files should be stored as metadata entries in the table.</p>
+<p>Create a miniature filesystem, which stores files of abitrary lengths and contents in a single address space, intermixed with each other in clusters of a set length. Appending all clusters of a file together will result in the original bit-for-bit data content of the original file.</p>
+<p>You should submit the following at each checkpoint for full credit:</p>
+<ul>
+<li>A plain-english description of what the code should accomplish</li>
+<li>A bullet point outline of the code&#39;s layout</li>
+<li>A pseudo-code draft of the code</li>
+<li>The code written in the final language</li>
+</ul>
+<p><strong>Checkpoint 1:</strong>
+You should be able to:</p>
+<ul>
+<li>Add and remove folders and files to and from the folder/file table (FFT)</li>
+<li>Print a list of all folders in the FFT</li>
+<li>Print a list of all files in a folder </li>
+<li>Print the metadata of a given folder using its FoID or its name</li>
+<li>Print the metadata of a given file using its FiID or its name</li>
+</ul>
+<p><strong>Checkpoint 2:</strong>
+You should be able to:</p>
+<ul>
+<li>Given a pre-populated address space, read the contents of a given file</li>
+<li>Move files from one folder to another</li>
+<li>Delete a file in three ways: Quick, Quick2, and Complete<ul>
+<li>Quick sets the FiMD to &quot;deleted&quot;</li>
+<li>Quick2 deletes the FiMD entry but doesn&#39;t modify the cluster&#39;s data content</li>
+<li>Complete removes all the data content at each cluster and removes the FiMD entry</li>
+</ul>
+</li>
+</ul>
+<p><strong>Checkpoint 3:</strong>
+You should be able to:</p>
+<ul>
+<li>Check if there&#39;s enough clusters to add a file, find the largest continuous space if possible</li>
+<li>Add and remove file data contentfrom the address space </li>
+</ul>
+<p><strong>Checkpoint 4:</strong>
+You should be able to:</p>
+<ul>
+<li>Defragment, even if it&#39;s cycle-heavy or slow<ul>
+<li>Bonus points if you try different algorithms, or implement them all as options</li>
+<li>Two possible methods to defragment:</li>
+<li>Try and move file clusters closer together with the goal of having all files&#39;s clusters continuous. the files data contentcan be in any order (i.e., not sorted or by folder). This could a slow in-the-background method. The immediate benefit of files whose clusters are close together is the read speed, since the head doesn&#39;t have to move around as far or as often.</li>
+<li>Start at the bottom and just start scooching the clusters down, updating the fiMD&#39;s cluster address list as necessary. since each cluster has its fiID and cluster index at the beginning, this should be straighforward. this will create a single free space at the top of the address space for new data content. </li>
+</ul>
+</li>
+</ul>
+<p><strong>Checkpoint 5:</strong>
+You should be able to:</p>
+<ul>
+<li>Write and use a tiny text editor to at minimum create new text files with data content and store them in the file system. It should be able to print a given text file with either a fiID, a FoID/FiID combo, or a text &quot;/folder/file.txt&quot; path.</li>
+<li>Nest folders within each other</li>
+<li>Have shortcuts that exist in one folder to point to a file in another folder</li>
+</ul>
+<p><strong>Checkpoint 6:</strong>
+You should be able to:</p>
+<ul>
+<li>Have a MFS-maintained &quot;Lost and Found&quot; where users can restore documents they deleted but want back. <ul>
+<li>This will store the metadata of files that were removed with the &quot;quick&quot; removal option (i.e., the file data content is there until the FiMD entry is removed from the FFT, and not just the flag in the FiMD is set as &quot;deleted&quot;) and allow you to &quot;recover&quot; previously deleted files.</li>
+</ul>
+</li>
+<li>Be able to &quot;empty&quot; the Lost and Found</li>
+</ul>
+<p><strong>FUTURE:</strong></p>
+<ul>
+<li>Use &quot;Clusterbins&quot; to store file data content locations in continuous segments of clusters that help with the speed of reading larger files</li>
+<li>Be able to modify files with a method that doesn&#39;t include deleted and recreating the FFT entry and the clusters. Some sort of compare?</li>
+<li>Have a list of free cluster locations to speed up locating a file, if currently you&#39;re jumping up reading cluster headers until you find a free one, writing data, and saving the address to the FFT entry</li>
+<li>Checksums because why not?</li>
+<li>What happens if your file is so large the cluster address exceeds the FFT entry length limit? Clusterbins may help, but maybe you need... FiMDE! The E stand for &quot;Extension&quot;, because it acts as a &quot;turn the page&quot; for files with a lot of metadata.<ul>
+<li>This could be a good place to implement FFT defragging that moves FiMDEs to right after their FiMDs.</li>
+<li>This could also be a good place to implement custom metadata. This might also be where filetypes and their extensions are necessary. The idea being that the name &quot;extension&quot; for the little tiddle at the end of the file&#39;s name refers to how the custom metadata for the file required an &quot;File Metadata Extensions&quot; in the MFS! </li>
+<li>You can store files without extensions, but they won&#39;t have any custom metadata, where the custom metadata is stuff like the program to open the file. Without an extension the user is prompted to select a program to open the file into.</li>
+<li>May also implement speed measure by having a quick table of id-to-address entries, to not have to iterate through all entry headings when looking up based on ID or file name. This would have to be updated as any entry-moving operation is performed.</li>
+</ul>
+</li>
+<li>Implement permissions for modifying FFT Entries and by extensions files, or in the common lingo read-write-execute for owner-group-users.</li>
+</ul>
+<h1 id="metadata-type-definitions">Metadata Type Definitions</h1>
+<h2 id="folder-metadata-datatype-header-entry-definition">Folder Metadata datatype/header entry definition</h2>
+<h3 id="segment-00-header">Segment 00: Header</h3>
+<ul>
+<li>BYTE[4] Entry beginner</li>
+<li>BYTE[4] folder ID (foID)</li>
+<li>BYTE[4] order in folder metadata (FoMD) entries list</li>
+<li>BYTE[4] total size of sum of files in folder</li>
+<li>BIT[16] flags<ul>
+<li>0 reserved</li>
+<li>1 isShortcut</li>
+<li>2 isDeleted</li>
+<li>3 isInUse</li>
+<li>4 isReadyOnly</li>
+<li>5 isHidden</li>
+</ul>
+</li>
+</ul>
+<h3 id="segment-01-folder-name">Segment 01: Folder Name</h3>
+<ul>
+<li>BYTE[4] length of name</li>
+<li>BYTE[length] folder name in ASCII</li>
+</ul>
+<h3 id="segment-02-folder-contents">Segment 02: Folder Contents</h3>
+<ul>
+<li>BYTE[4] count of files</li>
+<li>BYTE[count*4] file IDs</li>
+<li>BYTE[2] Entry Terminator</li>
+</ul>
+<h2 id="file-metadata-datatype-header-entry-definition">File Metadata datatype/header entry definition</h2>
+<h3 id="segment-00-header">Segment 00: Header</h3>
+<ul>
+<li>BYTE[4] Entry Beginner</li>
+<li>BYTE[4] file ID (FiID)</li>
+<li>BYTE[4] order in file metadata (FiMD) entries list</li>
+<li>BYTE[4] total size of sum file in clusters</li>
+<li>BIT[16] flags<ul>
+<li>0 reserved</li>
+<li>1 isShortcut</li>
+<li>2 isDeleted</li>
+<li>3 isInUse</li>
+<li>4 isReadyOnly</li>
+<li>5 isHidden</li>
+</ul>
+</li>
+</ul>
+<h3 id="segment-01-file-name">Segment 01: File Name</h3>
+<ul>
+<li>BYTE[4] length of name</li>
+<li>BYTE[length] file name in ASCII</li>
+</ul>
+<h3 id="segment-02-cluster-addresses">Segment 02: Cluster Addresses</h3>
+<ul>
+<li>BYTE[4] count of clusters</li>
+<li>BYTE[count*clusterSize] file cluster addresses</li>
+<li>BYTE[2] Entry Terminator</li>
+</ul>
+<h2 id="cluster-definition">Cluster definition</h2>
+<h3 id="segment-00-header">Segment 00: Header</h3>
+<ul>
+<li>BYTE[4] fiID</li>
+<li>BYTE[4] clusterIndex</li>
+</ul>
+<h3 id="segment-00-cluster-file-data">Segment 00: Cluster File Data</h3>
+<ul>
+<li>BYTE[clusterSize] cluster file data content</li>
+<li>BYTE[4] Cluster Terminator</li>
+</ul>
+<h1 id="architecture-design">Architecture Design</h1>
+<h2 id="the-command-line">The Command Line</h2>
+<p>Commands and parameters might look like this:</p>
+<pre><code>fs (this just prints <span class="hljs-keyword">the</span> instructions <span class="hljs-keyword">and</span> parameters) 
+fs list (this <span class="hljs-keyword">by</span> itself lists <span class="hljs-keyword">the</span> <span class="hljs-built_in">folder</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">files</span> <span class="hljs-keyword">in</span> root/no-path)
+fs list [<span class="hljs-built_in">folder</span>] (this lists <span class="hljs-keyword">the</span> <span class="hljs-built_in">files</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> given <span class="hljs-built_in">folder</span>)
+fs addfolder [<span class="hljs-built_in">folder</span>] (adds <span class="hljs-built_in">folder</span> <span class="hljs-built_in">to</span> root)
+fs addfile [<span class="hljs-built_in">folder</span>]/[name] (adds <span class="hljs-built_in">file</span> <span class="hljs-built_in">to</span> given <span class="hljs-built_in">folder</span>/path)
+fs removefolder [<span class="hljs-built_in">folder</span>] (removes <span class="hljs-built_in">folder</span> <span class="hljs-built_in">from</span> root)
+    -q will perform <span class="hljs-keyword">a</span> <span class="hljs-string">"quick"</span> removal
+    -q2 will perform <span class="hljs-keyword">a</span> <span class="hljs-string">"quick2"</span> removal        
+    -c will perform <span class="hljs-keyword">a</span> <span class="hljs-string">"complete"</span> removal
+fs removefile [<span class="hljs-built_in">folder</span>]/[name] (removes <span class="hljs-built_in">file</span> <span class="hljs-built_in">from</span> given <span class="hljs-built_in">folder</span>/path)
+    -q will perform <span class="hljs-keyword">a</span> <span class="hljs-string">"quick"</span> removal
+    -q2 will perform <span class="hljs-keyword">a</span> <span class="hljs-string">"quick2"</span> removal    
+    -c will perform <span class="hljs-keyword">a</span> <span class="hljs-string">"complete"</span> removal
+fs statistics (will show statistics <span class="hljs-keyword">as</span> calculated <span class="hljs-keyword">by</span> <span class="hljs-keyword">the</span> MFS background service)
+fs movefolder [<span class="hljs-built_in">folder</span>] (will move <span class="hljs-keyword">a</span> <span class="hljs-built_in">folder</span> <span class="hljs-built_in">from</span> its current <span class="hljs-built_in">folder</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">a</span> given <span class="hljs-built_in">folder</span>)
+fs movefile [<span class="hljs-built_in">folder</span>] (will move <span class="hljs-keyword">a</span> <span class="hljs-built_in">file</span> <span class="hljs-built_in">from</span> its current <span class="hljs-built_in">folder</span> <span class="hljs-built_in">to</span> <span class="hljs-keyword">a</span> given <span class="hljs-built_in">folder</span>)
+</code></pre><h2 id="the-mfs-background-service-must-">The MFS background service must:</h2>
+<ul>
+<li>Run intermittently to <ul>
+<li>Validate and defragment the FFT</li>
+<li>Perform periodic filesystem partial defragmenting at set intervals</li>
+<li>Keep track of its defragmenting progress, don&#39;t just start from the beginning or a random spot every time.</li>
+<li>Measure up the total free space in bytes, largest continous free space in bytes</li>
+<li>Measure up the count of folders and the count of files</li>
+</ul>
+</li>
+</ul>
+<h2 id="parsers">Parsers</h2>
+<p><strong>NOTE:</strong>The basic parsers will just iterate through their respective lists to find the exact file they&#39;re given, making this inefficient as it grows (I hear my Data Structures professor talking about Big O notation in the distance...). This could be optimized with a higher-level cache or queue that stores just the connections between files and folder and lives between the file system and service-level operations.</p>
+<h3 id="the-file-folder-table-parser-must-">The File/Folder Table Parser must:</h3>
+<ul>
+<li>Iterate through the FFT to find a given file or folder&#39;s metadata</li>
+<li>Execute command line commands such as listing files and folders, adding and eleting them, and defragmenting the &quot;disk&quot;.</li>
+</ul>
+<h3 id="the-folder-entry-parser-must-">The Folder Entry Parser must:</h3>
+<ul>
+<li>Given a folder ID (FoID), iterate through all folder metadata (FoMD) entries and return the data</li>
+<li>add entries to the end of the FoMD entries segment</li>
+<li>delete entries from within the FoMD entries segment and close the gap between entries</li>
+</ul>
+<h3 id="the-file-entry-parser-must-">The File Entry Parser must:</h3>
+<ul>
+<li>Given a file ID (FiID), iterate through all file metadata (FiMD) entries and return the data</li>
+<li>add entries to the end of the FiMD entries segment</li>
+<li>delete entries from within the FiMD entries segment and close the gap between entries</li>
+</ul>
+<h3 id="the-fft-defragger-aka-adding-and-removing-entries-must-">The FFT Defragger (aka adding and removing entries) must:</h3>
+<ul>
+<li>Move data up and down by a given offset</li>
+<li>Data at the starting offset and ending offset will be deleted. The starting and ending ooffset will be defined at the File/Folder Table (FFT) at index 0 of the disk</li>
+</ul>
+<h3 id="the-fs-defragger-aka-moving-clusters-up-and-down-the-address-space-must-">The FS Defragger (aka moving clusters up and down the address space) must:</h3>
+<ul>
+<li>Move cluster data up and down in the filesystem and update their locations in the FFT entry using the cluster&#39;s fiID and cluster index</li>
+</ul>
+
+
+
+
+
+
+
+        </p1>
+    </main>
+
+	<!-- Template Footer for Every Page Begins Here -->
+        <footer>
+            <p><img src="images/NaasEnergyBadge.png"> Copyright &copy; 2023 Corey Naas</p>
+        </footer>
+	<!-- Template Footer for Every Page Ends Here -->
+		</div>
+	</body>
+</html>

@@ -1,0 +1,68 @@
+/*
+Corey Naas
+(C) 2023
+*/
+
+#container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Body Formatting */
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Header Formatting */
+
+header {
+  background-color: #ffffff;
+  border-bottom: 2px solid #ff0000;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 36px;
+  margin: 0;
+  color: #ff0000;
+}
+
+header h2 {
+  font-size: 24px;
+  margin: 0 0 20px;
+  color: #ff0000;
+}
+
+/* Main Formatting */
+
+main {
+  background-color: #ffffff;
+  border: 2px solid #ff0000;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+main m1 {
+  font-size: 24px;
+  margin: 0 0 20px;
+  color: #ff0000;
+}
+
+main m2 {
+  font-size: 20px;
+  margin: 0 0 0 10px;
+  color: #ff0000;
+}
+
+main p1 {
+  color: #000000;
+}
